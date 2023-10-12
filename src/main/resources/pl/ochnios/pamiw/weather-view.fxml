@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ochnios.pamiw.WeatherController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <children>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="384.0" prefWidth="560.0">
+         <children>
+            <VBox prefHeight="258.0" prefWidth="230.0">
+               <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="230.0">
+                     <children>
+                        <TextField fx:id="searchField" alignment="TOP_LEFT" prefWidth="160.0" promptText="City name..." />
+                        <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" text="Search">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label fx:id="resultsLabel" text="Select city">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ListView fx:id="resultsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="308.0" prefWidth="230.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ListView>
+               </children></VBox>
+         </children></HBox>
+   </children>
+</VBox>
