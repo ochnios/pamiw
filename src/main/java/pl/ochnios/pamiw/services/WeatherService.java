@@ -2,6 +2,7 @@ package pl.ochnios.pamiw.services;
 
 import pl.ochnios.pamiw.Consts;
 import pl.ochnios.pamiw.models.currentconditions.CurrentConditions;
+import pl.ochnios.pamiw.models.dailyforecast.DailyForecast;
 import pl.ochnios.pamiw.models.dailyforecast.TomorrowForecast;
 import pl.ochnios.pamiw.models.hourlyforecast.HourlyForecast;
 import pl.ochnios.pamiw.services.shared.HttpClientUtil;
@@ -74,9 +75,9 @@ public class WeatherService {
                 HourlyForecast fh = forecast12h[i];
                 calendar.setTime(fh.dateTime);
                 forecastBuilder
-                        .append(calendar.get(Calendar.HOUR_OF_DAY)).append(":00\t")
-                        .append(fh.temperature.value).append(Consts.CELCIUS_SYMBOL).append('\t')
-                        .append(fh.iconPhrase).append("\n");
+                        .append(calendar.get(Calendar.HOUR_OF_DAY)).append(":00").append(Consts.TAB_CHARACTER)
+                        .append(fh.temperature.value).append(Consts.CELCIUS_SYMBOL).append(Consts.TAB_CHARACTER)
+                        .append(fh.iconPhrase).append(Consts.NEWLINE_CHARACTER);
             }
             return forecastBuilder.toString();
         } else {
@@ -85,6 +86,15 @@ public class WeatherService {
     }
 
     private String prepareForecastForTomorrow() {
-        return tomorrowForecast.headline.text;
+        if (tomorrowForecast != null && !tomorrowForecast.dailyForecasts.isEmpty()) {
+            DailyForecast tomorrow = tomorrowForecast.dailyForecasts.get(0);
+            return tomorrowForecast.headline.text + Consts.NEWLINE_CHARACTER
+                    + "Day: " + tomorrow.temperature.maximum.value + Consts.CELCIUS_SYMBOL + Consts.SPACE_CHARACTER
+                    + tomorrow.day.iconPhrase.toLowerCase() + Consts.NEWLINE_CHARACTER
+                    + "Night: " + tomorrow.temperature.minimum.value + Consts.CELCIUS_SYMBOL + Consts.SPACE_CHARACTER
+                    + tomorrow.night.iconPhrase.toLowerCase();
+        } else {
+            return Consts.STH_WENT_WRONG_TEXT;
+        }
     }
 }

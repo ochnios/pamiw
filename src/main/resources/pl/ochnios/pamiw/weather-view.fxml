@@ -41,20 +41,29 @@
                <children>
                   <TitledPane prefHeight="60.0" prefWidth="326.0" text="Current conditions">
                      <content>
-                        <Label fx:id="currentConditions" text="city not selected" />
+                        <Label fx:id="currentConditions" prefHeight="59.0" prefWidth="325.0" text="city not selected">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
                      </content>
                   </TitledPane>
-                  <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="122.0" prefWidth="326.0" text="Next 5 hours">
+                  <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="125.0" prefWidth="326.0" text="Next 5 hours">
                      <content>
-                        <Label fx:id="hourlyForecast" text="city not selected" />
+                        <Label fx:id="hourlyForecast" prefHeight="101.0" prefWidth="325.0" text="city not selected">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
                      </content>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TitledPane>
-                  <TitledPane layoutX="10.0" layoutY="80.0" prefHeight="122.0" prefWidth="326.0" text="Tomorrow">
+                  <TitledPane layoutX="10.0" layoutY="80.0" prefHeight="95.0" prefWidth="326.0" text="Tomorrow">
                      <content>
-                        <Label fx:id="tomorrowForecast" text="city not selected" />
+                        <Label fx:id="tomorrowForecast" prefHeight="93.0" prefWidth="325.0" text="city not selected">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
                      </content>
                      <VBox.margin>
                         <Insets top="10.0" />
