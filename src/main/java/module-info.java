@@ -8,4 +8,8 @@ module pl.ochnios.pamiw {
 
     opens pl.ochnios.pamiw to javafx.fxml;
     exports pl.ochnios.pamiw;
+
+    exports pl.ochnios.pamiw.models.location to com.fasterxml.jackson.databind;
+    exports pl.ochnios.pamiw.models.currentconditions to com.fasterxml.jackson.databind;
+    exports pl.ochnios.pamiw.models.hourlyforecast to com.fasterxml.jackson.databind;
 }

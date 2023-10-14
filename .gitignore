@@ -27,4 +27,4 @@ replay_pid*
 target/*
 
 # IntelliJ files
-.idea/workspace.xml
+.idea/*
