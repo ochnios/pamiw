@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2afcde7-2c6d-49c1-ae02-ecdbe45b1cfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/services/shared/HttpClientUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/services/shared/ObjectMapperUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/services/LocationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/services/LocationService.java" afterDir="false" />
     </list>
@@ -52,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/separate-http-client",
+    "git-widget-placeholder": "feature/separate-utils-from-services",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Program Files/Java/javafx-sdk-17.0.8/lib",
     "node.js.detected.package.eslint": "true",
@@ -120,7 +120,7 @@
       <workItem from="1697142119813" duration="302000" />
       <workItem from="1697227186752" duration="5992000" />
       <workItem from="1697266603050" duration="56000" />
-      <workItem from="1697266668379" duration="8763000" />
+      <workItem from="1697266668379" duration="9280000" />
     </task>
     <servers />
   </component>
