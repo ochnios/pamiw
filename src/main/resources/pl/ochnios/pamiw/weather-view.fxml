@@ -28,12 +28,24 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <ListView fx:id="resultsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="308.0" prefWidth="230.0">
+                  <ListView fx:id="resultsList" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onResultsListClick" prefHeight="308.0" prefWidth="230.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </ListView>
                </children></VBox>
+            <VBox prefHeight="360.0" prefWidth="343.0">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+               <children>
+                  <TitledPane prefHeight="60.0" prefWidth="326.0" text="Current conditions">
+                     <content>
+                        <Label fx:id="currentConditions" text="city not selected" />
+                     </content>
+                  </TitledPane>
+               </children>
+            </VBox>
          </children></HBox>
    </children>
 </VBox>
