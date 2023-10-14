@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.ochnios.pamiw.services.CurrentConditionsService;
+import pl.ochnios.pamiw.services.WeatherService;
 import pl.ochnios.pamiw.services.LocationService;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class WeatherApplication extends Application {
 
         // manual dependency injection
         LocationService locationService = new LocationService();
-        CurrentConditionsService currentConditionsService = new CurrentConditionsService();
+        WeatherService weatherService = new WeatherService();
         fxmlLoader.setControllerFactory((Class<?> type) -> {
             try {
                 // look for constructor taking my services as parameters
@@ -25,8 +25,8 @@ public class WeatherApplication extends Application {
                     if (c.getParameterCount() == 2) {
                         Class<?>[] parameterTypes = c.getParameterTypes();
                         if (parameterTypes[0] == LocationService.class
-                                && parameterTypes[1] == CurrentConditionsService.class) {
-                            return c.newInstance(locationService, currentConditionsService);
+                                && parameterTypes[1] == WeatherService.class) {
+                            return c.newInstance(locationService, weatherService);
                         }
                     }
                 }
