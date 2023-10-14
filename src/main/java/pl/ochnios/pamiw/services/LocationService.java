@@ -13,16 +13,14 @@ import java.nio.charset.StandardCharsets;
 
 public class LocationService {
     private Location[] foundLocations;
-    private String[] foundCities;
 
     public String[] searchLocations(String searchPhrase) throws Exception {
         URI searchURI = createSearchLocationURI(searchPhrase);
         String locationsJson = HttpClientUtil.makeHttpRequest(searchURI);
 
         foundLocations = ObjectMapperUtil.getObjectMapper().readValue(locationsJson, Location[].class);
-        foundCities = getCities(foundLocations);
 
-        return foundCities;
+        return getCities(foundLocations);
     }
 
     public String getCityKeyForIndex(int index) {
