@@ -6,6 +6,7 @@ import pl.ochnios.pamiw.services.LocationService;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 
 public class WeatherController {
     private final LocationService locationService;
@@ -16,6 +17,9 @@ public class WeatherController {
 
     @FXML
     private ListView<String> resultsList;
+
+    @FXML
+    private Label currentConditions;
 
     public WeatherController(LocationService locationService, WeatherService weatherService) {
         this.locationService = locationService;
@@ -37,9 +41,13 @@ public class WeatherController {
     @FXML
     protected void onResultsListClick() {
         int cityIndex = resultsList.getSelectionModel().getSelectedIndex();
-        if(cityIndex != -1) {
+        if (cityIndex != -1) {
             String cityKey = locationService.getCityKeyForIndex(cityIndex);
-            System.out.println(cityKey);
+            try {
+                currentConditions.setText(weatherService.getCurrentConditions(cityKey));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

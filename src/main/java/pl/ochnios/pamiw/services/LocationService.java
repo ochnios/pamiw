@@ -24,7 +24,7 @@ public class LocationService {
     }
 
     public String getCityKeyForIndex(int index) {
-        if(index < 0 || index > foundLocations.length) {
+        if (index < 0 || index > foundLocations.length) {
             throw new IllegalArgumentException("Provided index is incorrect!");
         } else {
             return foundLocations[index].key;
@@ -33,9 +33,9 @@ public class LocationService {
 
     private URI createSearchLocationURI(String searchPhrase) throws URISyntaxException {
         String encodedSearchPhrase = URLEncoder.encode(searchPhrase, StandardCharsets.UTF_8);
-        String uri = Consts.LOCATIONS_EP + "?q=" + encodedSearchPhrase +
-                "&language=" + Consts.LANGUAGE +
-                "&apikey=" + Consts.APIKEY;
+        String uri = Consts.LOCATIONS_EP + "?q=" + encodedSearchPhrase
+                + "&language=" + Consts.LANGUAGE
+                + "&apikey=" + Consts.APIKEY;
 
         return new URI(uri);
     }
@@ -51,7 +51,7 @@ public class LocationService {
             }
             return cities;
         } else {
-            return new String[]{"not found"};
+            return new String[]{Consts.NOT_FOUND_TEXT};
         }
     }
 
