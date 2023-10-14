@@ -28,7 +28,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <ListView fx:id="resultsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="308.0" prefWidth="230.0">
+                  <ListView fx:id="resultsList" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onResultsListClick" prefHeight="308.0" prefWidth="230.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>

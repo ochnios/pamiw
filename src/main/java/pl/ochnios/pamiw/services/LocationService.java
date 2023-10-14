@@ -25,6 +25,14 @@ public class LocationService {
         return foundCities;
     }
 
+    public String getCityKeyForIndex(int index) {
+        if(index < 0 || index > foundLocations.length) {
+            throw new IllegalArgumentException("Provided index is incorrect!");
+        } else {
+            return foundLocations[index].key;
+        }
+    }
+
     private URI createSearchLocationURI(String searchPhrase) throws URISyntaxException {
         String encodedSearchPhrase = URLEncoder.encode(searchPhrase, StandardCharsets.UTF_8);
         String uri = Consts.LOCATIONS_EP + "?q=" + encodedSearchPhrase +
