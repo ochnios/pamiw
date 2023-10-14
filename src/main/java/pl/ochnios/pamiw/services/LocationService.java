@@ -1,9 +1,11 @@
 package pl.ochnios.pamiw.services;
 
+import com.fasterxml.jackson.databind.ObjectReader;
 import pl.ochnios.pamiw.Consts;
 import pl.ochnios.pamiw.models.location.Location;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import pl.ochnios.pamiw.services.shared.HttpClientUtil;
 
 import java.io.IOException;
 import java.net.URI;
@@ -15,20 +17,17 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 public class LocationService {
-
-    private final HttpClient httpClient;
     private final ObjectMapper om;
     private Location[] foundLocations;
     private String[] foundCities;
 
     public LocationService() {
-        httpClient = HttpClient.newHttpClient();
         om = new ObjectMapper();
     }
 
     public String[] searchLocations(String searchPhrase) throws Exception {
         URI searchURI = createSearchLocationURI(searchPhrase);
-        String locationsJson = makeHttpRequest(searchURI);
+        String locationsJson = HttpClientUtil.makeHttpRequest(searchURI);
 
         foundLocations = om.readValue(locationsJson, Location[].class);
         foundCities = getCities(foundLocations);
@@ -43,21 +42,6 @@ public class LocationService {
                 "&apikey=" + Consts.APIKEY;
 
         return new URI(uri);
-    }
-
-    private String makeHttpRequest(URI uri) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(uri)
-                .GET()
-                .build();
-        HttpResponse<String> response = httpClient
-                .send(request, HttpResponse.BodyHandlers.ofString());
-
-        int responseCode = response.statusCode();
-        if (responseCode != Consts.HTTP_OK) {
-            throw new IOException("Invalid HTTP response code: " + responseCode);
-        }
-        return response.body();
     }
 
     private String[] getCities(Location[] locations) {
