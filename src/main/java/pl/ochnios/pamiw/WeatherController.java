@@ -24,6 +24,9 @@ public class WeatherController {
     @FXML
     private Label hourlyForecast;
 
+    @FXML
+    private Label tomorrowForecast;
+
     public WeatherController(LocationService locationService, WeatherService weatherService) {
         this.locationService = locationService;
         this.weatherService = weatherService;
@@ -49,6 +52,7 @@ public class WeatherController {
             try {
                 currentConditions.setText(weatherService.getCurrentConditions(cityKey));
                 hourlyForecast.setText(weatherService.getForecastForNext5Hours(cityKey));
+                tomorrowForecast.setText(weatherService.getForecastForTomorrow(cityKey));
             } catch (Exception e) {
                 e.printStackTrace();
             }

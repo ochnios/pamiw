@@ -44,9 +44,17 @@
                         <Label fx:id="currentConditions" text="city not selected" />
                      </content>
                   </TitledPane>
-                  <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="122.0" prefWidth="326.0" text="Hourly forecast">
+                  <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="122.0" prefWidth="326.0" text="Next 5 hours">
                      <content>
                         <Label fx:id="hourlyForecast" text="city not selected" />
+                     </content>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TitledPane>
+                  <TitledPane layoutX="10.0" layoutY="80.0" prefHeight="122.0" prefWidth="326.0" text="Tomorrow">
+                     <content>
+                        <Label fx:id="tomorrowForecast" text="city not selected" />
                      </content>
                      <VBox.margin>
                         <Insets top="10.0" />
