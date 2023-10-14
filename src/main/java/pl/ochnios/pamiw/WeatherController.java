@@ -22,8 +22,9 @@ public class WeatherController {
     protected void onSearchButtonClick() {
         String searchPhrase = searchField.getText();
         try {
-            String result = locationService.searchLocations(searchPhrase);
-            resultsList.getItems().add(result);
+            String[] searchResults = locationService.searchLocations(searchPhrase);
+            resultsList.getItems().clear();
+            resultsList.getItems().addAll(searchResults);
         } catch (Exception e) {
             e.printStackTrace();
         }

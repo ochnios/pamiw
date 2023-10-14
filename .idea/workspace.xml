@@ -5,20 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2afcde7-2c6d-49c1-ae02-ecdbe45b1cfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/fasterxml_jackson_core.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/fasterxml_jackson_core_annotations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/fasterxml_jackson_core_databind.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/models/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pamiw.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pamiw.ipr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pamiw.iws" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/models/location/AdministrativeArea.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/models/location/Country.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/models/location/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/Consts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/WeatherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/WeatherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/services/LocationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/pamiw/services/LocationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/pl/ochnios/pamiw/weather-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pl/ochnios/pamiw/weather-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +75,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="pl.ochnios.pamiw.models" />
       <recent name="pl.ochnios.pamiw" />
     </key>
   </component>
@@ -130,7 +126,7 @@
       <workItem from="1697142119813" duration="302000" />
       <workItem from="1697227186752" duration="5992000" />
       <workItem from="1697266603050" duration="56000" />
-      <workItem from="1697266668379" duration="1121000" />
+      <workItem from="1697266668379" duration="8366000" />
     </task>
     <servers />
   </component>
