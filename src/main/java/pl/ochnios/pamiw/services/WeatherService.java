@@ -2,6 +2,8 @@ package pl.ochnios.pamiw.services;
 
 import pl.ochnios.pamiw.Consts;
 import pl.ochnios.pamiw.models.currentconditions.CurrentConditions;
+import pl.ochnios.pamiw.models.dailyforecast.DailyForecast;
+import pl.ochnios.pamiw.models.dailyforecast.TomorrowForecast;
 import pl.ochnios.pamiw.models.hourlyforecast.HourlyForecast;
 import pl.ochnios.pamiw.services.shared.HttpClientUtil;
 import pl.ochnios.pamiw.services.shared.ObjectMapperUtil;
@@ -15,6 +17,7 @@ import java.util.Calendar;
 public class WeatherService {
     private CurrentConditions[] currentConditions;
     private HourlyForecast[] forecast12h;
+    private TomorrowForecast tomorrowForecast;
 
     public String getCurrentConditions(String cityKey) throws Exception {
         URI currentConditionsURI = createWeatherForecastURI(Consts.CURRENT_CONDITIONS_EP, cityKey);
@@ -22,7 +25,7 @@ public class WeatherService {
 
         currentConditions = ObjectMapperUtil.getObjectMapper().readValue(currentConditionsJson, CurrentConditions[].class);
 
-        return getCurrentConditionsText(currentConditions);
+        return prepareCurrentConditionsText();
     }
 
     public String getForecastForNext5Hours(String cityKey) throws Exception {
@@ -31,7 +34,16 @@ public class WeatherService {
 
         forecast12h = ObjectMapperUtil.getObjectMapper().readValue(forecast12hJson, HourlyForecast[].class);
 
-        return getForecastForNext5HoursText();
+        return prepareForecastForNext5HoursText();
+    }
+
+    public String getForecastForTomorrow(String cityKey) throws Exception {
+        URI tomorrowForecastURI = createWeatherForecastURI(Consts.DAILY_1_DAY_EP, cityKey);
+        String tomorrowForecastJson = HttpClientUtil.makeHttpRequest(tomorrowForecastURI);
+
+        tomorrowForecast = ObjectMapperUtil.getObjectMapper().readValue(tomorrowForecastJson, TomorrowForecast.class);
+
+        return prepareForecastForTomorrow();
     }
 
     private URI createWeatherForecastURI(String endpoint, String cityKey) throws URISyntaxException {
@@ -44,8 +56,8 @@ public class WeatherService {
         return new URI(uri);
     }
 
-    private String getCurrentConditionsText(CurrentConditions[] conditions) {
-        int conditionsLength = conditions.length;
+    private String prepareCurrentConditionsText() {
+        int conditionsLength = currentConditions.length;
         if (conditionsLength == 1) {
             return currentConditions[0].weatherText + ", "
                     + currentConditions[0].temperature.metric.value + Consts.CELCIUS_SYMBOL;
@@ -54,7 +66,7 @@ public class WeatherService {
         }
     }
 
-    private String getForecastForNext5HoursText() {
+    private String prepareForecastForNext5HoursText() {
         int forecast12hLength = forecast12h.length;
         if (forecast12hLength == 12) {
             Calendar calendar = Calendar.getInstance();
@@ -63,11 +75,24 @@ public class WeatherService {
                 HourlyForecast fh = forecast12h[i];
                 calendar.setTime(fh.dateTime);
                 forecastBuilder
-                        .append(calendar.get(Calendar.HOUR_OF_DAY)).append(":00\t")
-                        .append(fh.temperature.value).append(Consts.CELCIUS_SYMBOL).append('\t')
-                        .append(fh.iconPhrase).append("\n");
+                        .append(calendar.get(Calendar.HOUR_OF_DAY)).append(":00").append(Consts.TAB_CHARACTER)
+                        .append(fh.temperature.value).append(Consts.CELCIUS_SYMBOL).append(Consts.TAB_CHARACTER)
+                        .append(fh.iconPhrase).append(Consts.NEWLINE_CHARACTER);
             }
             return forecastBuilder.toString();
+        } else {
+            return Consts.STH_WENT_WRONG_TEXT;
+        }
+    }
+
+    private String prepareForecastForTomorrow() {
+        if (tomorrowForecast != null && !tomorrowForecast.dailyForecasts.isEmpty()) {
+            DailyForecast tomorrow = tomorrowForecast.dailyForecasts.get(0);
+            return tomorrowForecast.headline.text + Consts.NEWLINE_CHARACTER
+                    + "Day: " + tomorrow.temperature.maximum.value + Consts.CELCIUS_SYMBOL + Consts.SPACE_CHARACTER
+                    + tomorrow.day.iconPhrase.toLowerCase() + Consts.NEWLINE_CHARACTER
+                    + "Night: " + tomorrow.temperature.minimum.value + Consts.CELCIUS_SYMBOL + Consts.SPACE_CHARACTER
+                    + tomorrow.night.iconPhrase.toLowerCase();
         } else {
             return Consts.STH_WENT_WRONG_TEXT;
         }

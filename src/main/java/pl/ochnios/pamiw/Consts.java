@@ -14,5 +14,8 @@ public class Consts {
     public static final String NOT_FOUND_TEXT = "not found";
     public static final String STH_WENT_WRONG_TEXT = "something went wrong";
     public static final String CELCIUS_SYMBOL = "°C";
+    public static final char NEWLINE_CHARACTER = '\n';
+    public static final char TAB_CHARACTER = '\t';
+    public static final char SPACE_CHARACTER = ' ';
     public static final int HTTP_OK = 200;
 }
