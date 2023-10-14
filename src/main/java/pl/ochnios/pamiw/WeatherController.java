@@ -1,9 +1,11 @@
 package pl.ochnios.pamiw;
 
+import pl.ochnios.pamiw.services.CurrentConditionsService;
+import pl.ochnios.pamiw.services.LocationService;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import pl.ochnios.pamiw.services.LocationService;
 
 public class WeatherController {
     private final LocationService locationService;
@@ -14,7 +16,7 @@ public class WeatherController {
     @FXML
     private ListView<String> resultsList;
 
-    public WeatherController(LocationService locationService) {
+    public WeatherController(LocationService locationService, CurrentConditionsService currentConditionsService) {
         this.locationService = locationService;
     }
 
