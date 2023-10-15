@@ -39,13 +39,25 @@
                   <Insets left="20.0" />
                </HBox.margin>
                <children>
-                  <TitledPane prefHeight="60.0" prefWidth="326.0" text="Current conditions">
+                  <TitledPane prefHeight="57.0" prefWidth="326.0" text="Current conditions">
                      <content>
-                        <Label fx:id="currentConditions" prefHeight="59.0" prefWidth="325.0" text="city not selected">
+                        <Label fx:id="currentConditions" prefHeight="30.0" prefWidth="325.0" text="city not selected">
                            <padding>
                               <Insets left="10.0" />
                            </padding></Label>
                      </content>
+                  </TitledPane>
+                  <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="57.0" prefWidth="326.0" text="Drving index">
+                     <content>
+                        <Label fx:id="drivingIndex" prefHeight="30.0" prefWidth="325.0" text="city not selected">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </content>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                   </TitledPane>
                   <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="125.0" prefWidth="326.0" text="Next 5 hours">
                      <content>

@@ -22,6 +22,9 @@ public class WeatherController {
     private Label currentConditions;
 
     @FXML
+    private Label drivingIndex;
+
+    @FXML
     private Label hourlyForecast;
 
     @FXML
@@ -51,6 +54,7 @@ public class WeatherController {
             String cityKey = locationService.getCityKeyForIndex(cityIndex);
             try {
                 currentConditions.setText(weatherService.getCurrentConditions(cityKey));
+                drivingIndex.setText(weatherService.getCurrentDrivingIndex(cityKey));
                 hourlyForecast.setText(weatherService.getForecastForNext5Hours(cityKey));
                 tomorrowForecast.setText(weatherService.getForecastForTomorrow(cityKey));
             } catch (Exception e) {
