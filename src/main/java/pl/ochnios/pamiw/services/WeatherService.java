@@ -2,6 +2,7 @@ package pl.ochnios.pamiw.services;
 
 import pl.ochnios.pamiw.Consts;
 import pl.ochnios.pamiw.models.currentconditions.CurrentConditions;
+import pl.ochnios.pamiw.models.currentconditions.DailyIndex;
 import pl.ochnios.pamiw.models.dailyforecast.DailyForecast;
 import pl.ochnios.pamiw.models.dailyforecast.TomorrowForecast;
 import pl.ochnios.pamiw.models.hourlyforecast.HourlyForecast;
@@ -16,6 +17,7 @@ import java.util.Calendar;
 
 public class WeatherService {
     private CurrentConditions[] currentConditions;
+    private DailyIndex[] currentDrivingIndex;
     private HourlyForecast[] forecast12h;
     private TomorrowForecast tomorrowForecast;
 
@@ -26,6 +28,15 @@ public class WeatherService {
         currentConditions = ObjectMapperUtil.getObjectMapper().readValue(currentConditionsJson, CurrentConditions[].class);
 
         return prepareCurrentConditionsText();
+    }
+
+    public String getCurrentDrivingIndex(String cityKey) throws Exception {
+        URI currentDrivingIndexURI = createDailyIndexURI(Consts.INDICES_EP, cityKey, Consts.DRIVING_INDEX_KEY);
+        String currentDrivingIndexJson = HttpClientUtil.makeHttpRequest(currentDrivingIndexURI);
+
+        currentDrivingIndex = ObjectMapperUtil.getObjectMapper().readValue(currentDrivingIndexJson, DailyIndex[].class);
+
+        return prepareCurrentDrivingIndexText();
     }
 
     public String getForecastForNext5Hours(String cityKey) throws Exception {
@@ -56,11 +67,28 @@ public class WeatherService {
         return new URI(uri);
     }
 
+    private URI createDailyIndexURI(String endpoint, String cityKey, int index) throws  URISyntaxException {
+        String encodedCityKey = URLEncoder.encode(cityKey, StandardCharsets.UTF_8);
+        String uri = endpoint + "/" + encodedCityKey + "/" + index
+                + "?language=" + Consts.LANGUAGE
+                + "&details=" + Consts.INDEX_DETAILS
+                + "&apikey=" + Consts.APIKEY;
+
+        return new URI(uri);
+    }
+
     private String prepareCurrentConditionsText() {
-        int conditionsLength = currentConditions.length;
-        if (conditionsLength == 1) {
+        if (currentConditions.length == 1) {
             return currentConditions[0].weatherText + ", "
                     + currentConditions[0].temperature.metric.value + Consts.CELCIUS_SYMBOL;
+        } else {
+            return Consts.STH_WENT_WRONG_TEXT;
+        }
+    }
+
+    private String prepareCurrentDrivingIndexText() {
+        if (currentDrivingIndex.length == 1) {
+            return currentDrivingIndex[0].text;
         } else {
             return Consts.STH_WENT_WRONG_TEXT;
         }
