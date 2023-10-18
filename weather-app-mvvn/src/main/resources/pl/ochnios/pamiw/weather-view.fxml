@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ochnios.pamiw.WeatherController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <children>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="384.0" prefWidth="560.0">
+         <children>
+            <VBox prefHeight="258.0" prefWidth="230.0">
+               <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="230.0">
+                     <children>
+                        <TextField fx:id="searchField" alignment="TOP_LEFT" onAction="#onSearchButtonClick" prefWidth="160.0" promptText="City name..." />
+                        <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="26.0" prefWidth="63.0" text="Search">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label fx:id="resultsLabel" text="Select city">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ListView fx:id="resultsList" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onResultsListClick" prefHeight="308.0" prefWidth="230.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ListView>
+               </children></VBox>
+            <VBox prefHeight="360.0" prefWidth="343.0">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+               <children>
+                  <TitledPane prefHeight="57.0" prefWidth="326.0" text="Current conditions">
+                     <content>
+                        <Label fx:id="currentConditions" prefHeight="30.0" prefWidth="325.0" text="city not selected">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
+                     </content>
+                  </TitledPane>
+                  <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="57.0" prefWidth="326.0" text="Drving index">
+                     <content>
+                        <Label fx:id="drivingIndex" prefHeight="30.0" prefWidth="325.0" text="city not selected">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </content>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TitledPane>
+                  <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="125.0" prefWidth="326.0" text="Next 5 hours">
+                     <content>
+                        <Label fx:id="hourlyForecast" prefHeight="101.0" prefWidth="325.0" text="city not selected">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
+                     </content>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TitledPane>
+                  <TitledPane layoutX="10.0" layoutY="80.0" prefHeight="95.0" prefWidth="326.0" text="Tomorrow">
+                     <content>
+                        <Label fx:id="tomorrowForecast" prefHeight="93.0" prefWidth="325.0" text="city not selected">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
+                     </content>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TitledPane>
+               </children>
+            </VBox>
+         </children></HBox>
+   </children>
+</VBox>
