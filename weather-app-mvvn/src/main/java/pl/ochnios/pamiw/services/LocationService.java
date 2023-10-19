@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class LocationService {
+    public static final String LOCATIONS_EP = Consts.BASE_URL + "locations/v1/cities/autocomplete";
     private Location[] foundLocations;
 
     public String[] searchLocations(String searchPhrase) throws Exception {
@@ -32,7 +33,7 @@ public class LocationService {
 
     private URI createSearchLocationURI(String searchPhrase) throws URISyntaxException {
         String encodedSearchPhrase = URLEncoder.encode(searchPhrase, StandardCharsets.UTF_8);
-        String uri = Consts.LOCATIONS_EP + "?q=" + encodedSearchPhrase
+        String uri = LOCATIONS_EP + "?q=" + encodedSearchPhrase
                 + "&language=" + Consts.LANGUAGE
                 + "&apikey=" + Consts.APIKEY;
 

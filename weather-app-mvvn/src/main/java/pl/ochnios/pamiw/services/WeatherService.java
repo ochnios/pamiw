@@ -16,13 +16,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 
 public class WeatherService {
+    private static final String CURRENT_CONDITIONS_EP = Consts.BASE_URL + "currentconditions/v1";
+    private static final String INDICES_EP = Consts.BASE_URL + "indices/v1/daily/1day";
+    private static final String HOURLY_12_HOUR_EP = Consts.BASE_URL + "forecasts/v1/hourly/12hour";
+    private static final String DAILY_1_DAY_EP = Consts.BASE_URL + "forecasts/v1/daily/1day";
+    private static final String CELSIUS_SYMBOL = "°C";
+    private static final String INDEX_DETAILS = "true";
+    private static final int DRIVING_INDEX_KEY = 40;
+
     private CurrentConditions[] currentConditions;
     private DailyIndex[] currentDrivingIndex;
     private HourlyForecast[] forecast12h;
     private TomorrowForecast tomorrowForecast;
 
     public String getCurrentConditions(String cityKey) throws Exception {
-        URI currentConditionsURI = createWeatherForecastURI(Consts.CURRENT_CONDITIONS_EP, cityKey);
+        URI currentConditionsURI = createWeatherForecastURI(CURRENT_CONDITIONS_EP, cityKey);
         String currentConditionsJson = HttpClientUtil.makeHttpRequest(currentConditionsURI);
 
         currentConditions = ObjectMapperUtil.getObjectMapper().readValue(currentConditionsJson, CurrentConditions[].class);
@@ -31,7 +39,7 @@ public class WeatherService {
     }
 
     public String getCurrentDrivingIndex(String cityKey) throws Exception {
-        URI currentDrivingIndexURI = createDailyIndexURI(Consts.INDICES_EP, cityKey, Consts.DRIVING_INDEX_KEY);
+        URI currentDrivingIndexURI = createDailyIndexURI(INDICES_EP, cityKey, DRIVING_INDEX_KEY);
         String currentDrivingIndexJson = HttpClientUtil.makeHttpRequest(currentDrivingIndexURI);
 
         currentDrivingIndex = ObjectMapperUtil.getObjectMapper().readValue(currentDrivingIndexJson, DailyIndex[].class);
@@ -40,7 +48,7 @@ public class WeatherService {
     }
 
     public String getForecastForNext5Hours(String cityKey) throws Exception {
-        URI forecast12hURI = createWeatherForecastURI(Consts.HOURLY_12_HOUR_EP, cityKey);
+        URI forecast12hURI = createWeatherForecastURI(HOURLY_12_HOUR_EP, cityKey);
         String forecast12hJson = HttpClientUtil.makeHttpRequest(forecast12hURI);
 
         forecast12h = ObjectMapperUtil.getObjectMapper().readValue(forecast12hJson, HourlyForecast[].class);
@@ -49,7 +57,7 @@ public class WeatherService {
     }
 
     public String getForecastForTomorrow(String cityKey) throws Exception {
-        URI tomorrowForecastURI = createWeatherForecastURI(Consts.DAILY_1_DAY_EP, cityKey);
+        URI tomorrowForecastURI = createWeatherForecastURI(DAILY_1_DAY_EP, cityKey);
         String tomorrowForecastJson = HttpClientUtil.makeHttpRequest(tomorrowForecastURI);
 
         tomorrowForecast = ObjectMapperUtil.getObjectMapper().readValue(tomorrowForecastJson, TomorrowForecast.class);
@@ -71,7 +79,7 @@ public class WeatherService {
         String encodedCityKey = URLEncoder.encode(cityKey, StandardCharsets.UTF_8);
         String uri = endpoint + "/" + encodedCityKey + "/" + index
                 + "?language=" + Consts.LANGUAGE
-                + "&details=" + Consts.INDEX_DETAILS
+                + "&details=" + INDEX_DETAILS
                 + "&apikey=" + Consts.APIKEY;
 
         return new URI(uri);
@@ -80,7 +88,7 @@ public class WeatherService {
     private String prepareCurrentConditionsText() {
         if (currentConditions.length == 1) {
             return currentConditions[0].weatherText + ", "
-                    + currentConditions[0].temperature.metric.value + Consts.CELCIUS_SYMBOL;
+                    + currentConditions[0].temperature.metric.value + CELSIUS_SYMBOL;
         } else {
             return Consts.STH_WENT_WRONG_TEXT;
         }
@@ -104,7 +112,7 @@ public class WeatherService {
                 calendar.setTime(fh.dateTime);
                 forecastBuilder
                         .append(calendar.get(Calendar.HOUR_OF_DAY)).append(":00").append(Consts.TAB_CHARACTER)
-                        .append(fh.temperature.value).append(Consts.CELCIUS_SYMBOL).append(Consts.TAB_CHARACTER)
+                        .append(fh.temperature.value).append(CELSIUS_SYMBOL).append(Consts.TAB_CHARACTER)
                         .append(fh.iconPhrase).append(Consts.NEWLINE_CHARACTER);
             }
             return forecastBuilder.toString();
@@ -117,9 +125,9 @@ public class WeatherService {
         if (tomorrowForecast != null && !tomorrowForecast.dailyForecasts.isEmpty()) {
             DailyForecast tomorrow = tomorrowForecast.dailyForecasts.get(0);
             return tomorrowForecast.headline.text + Consts.NEWLINE_CHARACTER
-                    + "Day: " + tomorrow.temperature.maximum.value + Consts.CELCIUS_SYMBOL + Consts.SPACE_CHARACTER
+                    + "Day: " + tomorrow.temperature.maximum.value + CELSIUS_SYMBOL + Consts.SPACE_CHARACTER
                     + tomorrow.day.iconPhrase.toLowerCase() + Consts.NEWLINE_CHARACTER
-                    + "Night: " + tomorrow.temperature.minimum.value + Consts.CELCIUS_SYMBOL + Consts.SPACE_CHARACTER
+                    + "Night: " + tomorrow.temperature.minimum.value + CELSIUS_SYMBOL + Consts.SPACE_CHARACTER
                     + tomorrow.night.iconPhrase.toLowerCase();
         } else {
             return Consts.STH_WENT_WRONG_TEXT;
