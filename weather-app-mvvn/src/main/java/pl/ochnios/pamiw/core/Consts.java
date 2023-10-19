@@ -1,4 +1,4 @@
-package pl.ochnios.pamiw;
+package pl.ochnios.pamiw.core;
 
 public class Consts {
     public static final String APIKEY = "aaa";

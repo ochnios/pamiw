@@ -1,4 +1,4 @@
-package pl.ochnios.pamiw;
+package pl.ochnios.pamiw.views;
 
 import pl.ochnios.pamiw.services.WeatherService;
 import pl.ochnios.pamiw.services.LocationService;

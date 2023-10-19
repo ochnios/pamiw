@@ -1,6 +1,6 @@
 package pl.ochnios.pamiw.services;
 
-import pl.ochnios.pamiw.Consts;
+import pl.ochnios.pamiw.core.Consts;
 import pl.ochnios.pamiw.models.currentconditions.CurrentConditions;
 import pl.ochnios.pamiw.models.currentconditions.DailyIndex;
 import pl.ochnios.pamiw.models.dailyforecast.DailyForecast;

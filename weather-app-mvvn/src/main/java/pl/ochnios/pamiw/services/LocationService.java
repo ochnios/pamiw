@@ -1,7 +1,6 @@
 package pl.ochnios.pamiw.services;
 
-import com.fasterxml.jackson.databind.ObjectReader;
-import pl.ochnios.pamiw.Consts;
+import pl.ochnios.pamiw.core.Consts;
 import pl.ochnios.pamiw.models.location.Location;
 import pl.ochnios.pamiw.services.shared.HttpClientUtil;
 import pl.ochnios.pamiw.services.shared.ObjectMapperUtil;

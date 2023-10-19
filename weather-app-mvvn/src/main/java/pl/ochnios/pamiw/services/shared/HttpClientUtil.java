@@ -1,6 +1,6 @@
 package pl.ochnios.pamiw.services.shared;
 
-import pl.ochnios.pamiw.Consts;
+import pl.ochnios.pamiw.core.Consts;
 
 import java.io.IOException;
 import java.net.URI;
