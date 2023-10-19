@@ -1,7 +1,7 @@
 package pl.ochnios.pamiw.core;
 
 public class Consts {
-    public static final String BASE_URL = "https://dataservice.accuweather.com/"; // https://localhost:8080/
+    public static final String BASE_URL = "https://localhost:8080/"; // https://localhost:8080/
     public static final String APIKEY = "${accuweather.key}";
     public static final String LANGUAGE = "en-US";
     public static final String METRIC = "true";

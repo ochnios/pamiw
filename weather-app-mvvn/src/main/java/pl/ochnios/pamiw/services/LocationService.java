@@ -11,7 +11,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class LocationService {
-    public static final String LOCATIONS_EP = Consts.BASE_URL + "locations/v1/cities/autocomplete";
+    private static final String LOCATIONS_EP = Consts.BASE_URL + "locations/v1/cities/autocomplete";
     private Location[] foundLocations;
 
     public String[] searchLocations(String searchPhrase) throws Exception {
@@ -27,7 +27,7 @@ public class LocationService {
         if (index < 0 || index > foundLocations.length) {
             throw new IllegalArgumentException("Provided index is incorrect!");
         } else {
-            return foundLocations[index].key;
+            return foundLocations[index].getKey();
         }
     }
 
@@ -45,9 +45,9 @@ public class LocationService {
         if (locationsCount > 0) {
             String[] cities = new String[locationsCount];
             for (int i = 0; i < locationsCount; i++) {
-                cities[i] = locations[i].localizedName
-                        + " (" + locations[i].administrativeArea.localizedName
-                        + ", " + locations[i].country.localizedName + ")";
+                cities[i] = locations[i].getLocalizedName()
+                        + " (" + locations[i].getAdministrativeArea().getLocalizedName()
+                        + ", " + locations[i].getCountry().getLocalizedName() + ")";
             }
             return cities;
         } else {

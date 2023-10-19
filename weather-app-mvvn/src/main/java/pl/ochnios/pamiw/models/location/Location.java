@@ -1,16 +1,34 @@
 package pl.ochnios.pamiw.models.location;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import pl.ochnios.pamiw.models.location.AdministrativeArea;
-import pl.ochnios.pamiw.models.location.Country;
+import pl.ochnios.pamiw.models.Model;
 
-public class Location{
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+@Getter
+@Setter
+public class Location implements Model {
     @JsonProperty("Key")
-    public String key;
+    private String key;
     @JsonProperty("LocalizedName")
-    public String localizedName;
+    private String localizedName;
     @JsonProperty("Country")
-    public Country country;
+    private Country country;
     @JsonProperty("AdministrativeArea")
-    public AdministrativeArea administrativeArea;
+    private AdministrativeArea administrativeArea;
+
+    private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+
+    @Override
+    public void addListener(String name, PropertyChangeListener listener) {
+        if(name == null) {
+            changeSupport.addPropertyChangeListener(listener);
+        } else {
+            changeSupport.addPropertyChangeListener(name, listener);
+        }
+    }
 }

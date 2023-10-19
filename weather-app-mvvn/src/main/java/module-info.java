@@ -5,6 +5,8 @@ module pl.ochnios.pamiw {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
+    requires java.desktop;
+    requires lombok;
 
     exports pl.ochnios.pamiw;
     opens pl.ochnios.pamiw to javafx.fxml;
