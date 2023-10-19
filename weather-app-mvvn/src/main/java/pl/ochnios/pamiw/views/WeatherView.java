@@ -8,7 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
-public class WeatherController {
+public class WeatherView {
     private final LocationService locationService;
     private final WeatherService weatherService;
 
@@ -30,7 +30,7 @@ public class WeatherController {
     @FXML
     private Label tomorrowForecast;
 
-    public WeatherController(LocationService locationService, WeatherService weatherService) {
+    public WeatherView(LocationService locationService, WeatherService weatherService) {
         this.locationService = locationService;
         this.weatherService = weatherService;
     }
