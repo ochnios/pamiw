@@ -4,5 +4,5 @@ This repository contains micro-projects related to the "Mobile and Web Applicati
 ## 1. weather-app
 A simple JavaFX application created with the goal of building a simple graphical application that leverages multiple AccuWeather endpoints to fetch weather data.
 
-## 2. weather-app-mvvn
-The same as weather-app but adjusted to implement the MVVN pattern
+## 2. weather-app-mvvm
+The same as weather-app but adjusted to implement the MVVM pattern
