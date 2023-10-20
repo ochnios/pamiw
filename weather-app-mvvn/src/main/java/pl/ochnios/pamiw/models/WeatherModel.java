@@ -6,10 +6,10 @@ import pl.ochnios.pamiw.models.services.WeatherService;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
+import java.util.List;
 
 public class WeatherModel {
-    private ArrayList<String> locations;
+    private List<String> locations;
     private String currentConditions;
     private String drivingIndex;
     private String next5HoursForecast;
@@ -32,7 +32,9 @@ public class WeatherModel {
         }
     }
 
-    public void fetchLocations(String searchPhrase) {
-
+    public void fetchLocations(String searchPhrase) throws Exception {
+        List<String> results = locationService.searchLocations(searchPhrase);
+        changeSupport.firePropertyChange("locations", locations, results);
+        locations = results;
     }
 }

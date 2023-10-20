@@ -28,11 +28,17 @@ public class WeatherView {
 
     public void init(WeatherViewModel weatherViewModel) {
         this.weatherViewModel = weatherViewModel;
+
+        resultsList.itemsProperty().bind(weatherViewModel.getLocationsProperty());
     }
 
     @FXML
     protected void onSearchButtonClick() {
-
+        try {
+            weatherViewModel.searchLocations(searchField.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

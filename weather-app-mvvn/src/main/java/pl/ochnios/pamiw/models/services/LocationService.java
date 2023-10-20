@@ -9,12 +9,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocationService {
     private static final String LOCATIONS_EP = Consts.BASE_URL + "locations/v1/cities/autocomplete";
     private Location[] foundLocations;
 
-    public String[] searchLocations(String searchPhrase) throws Exception {
+    public List<String> searchLocations(String searchPhrase) throws Exception {
         URI searchURI = createSearchLocationURI(searchPhrase);
         String locationsJson = HttpClientUtil.makeHttpRequest(searchURI);
 
@@ -40,18 +42,20 @@ public class LocationService {
         return new URI(uri);
     }
 
-    private String[] getCities(Location[] locations) {
+    private List<String> getCities(Location[] locations) {
         int locationsCount = locations.length;
         if (locationsCount > 0) {
-            String[] cities = new String[locationsCount];
-            for (int i = 0; i < locationsCount; i++) {
-                cities[i] = locations[i].getLocalizedName()
-                        + " (" + locations[i].getAdministrativeArea().getLocalizedName()
-                        + ", " + locations[i].getCountry().getLocalizedName() + ")";
+            ArrayList<String> cities = new ArrayList<String>(locationsCount);
+            for (Location location : locations) {
+                cities.add(
+                        location.getLocalizedName()
+                        + " (" + location.getAdministrativeArea().getLocalizedName()
+                        + ", " + location.getCountry().getLocalizedName() + ")"
+                );
             }
             return cities;
         } else {
-            return new String[]{Consts.NOT_FOUND_TEXT};
+            return List.of(Consts.NOT_FOUND_TEXT);
         }
     }
 
