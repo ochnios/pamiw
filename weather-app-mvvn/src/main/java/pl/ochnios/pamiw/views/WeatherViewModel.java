@@ -1,5 +1,9 @@
 package pl.ochnios.pamiw.views;
 
-public class WeatherViewModel {
+import pl.ochnios.pamiw.models.WeatherModel;
 
+public class WeatherViewModel {
+    public WeatherViewModel(WeatherModel model) {
+
+    }
 }

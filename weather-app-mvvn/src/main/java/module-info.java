@@ -7,6 +7,7 @@ module pl.ochnios.pamiw {
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
     requires lombok;
+    requires com.google.guice;
 
     exports pl.ochnios.pamiw;
     opens pl.ochnios.pamiw to javafx.fxml;
@@ -14,6 +15,8 @@ module pl.ochnios.pamiw {
     opens pl.ochnios.pamiw.core to javafx.fxml;
     exports pl.ochnios.pamiw.views;
     opens pl.ochnios.pamiw.views to javafx.fxml;
+    exports pl.ochnios.pamiw.models;
+    exports pl.ochnios.pamiw.models.services;
 
     exports pl.ochnios.pamiw.models.auxiliary.location to com.fasterxml.jackson.databind;
     exports pl.ochnios.pamiw.models.auxiliary.currentconditions to com.fasterxml.jackson.databind;

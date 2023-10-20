@@ -61,7 +61,7 @@
                   </TitledPane>
                   <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="125.0" prefWidth="326.0" text="Next 5 hours">
                      <content>
-                        <Label fx:id="hourlyForecast" prefHeight="101.0" prefWidth="325.0" text="city not selected">
+                        <Label fx:id="next5HoursForecast" prefHeight="101.0" prefWidth="325.0" text="city not selected">
                            <padding>
                               <Insets left="10.0" />
                            </padding></Label>
