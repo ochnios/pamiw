@@ -1,25 +1,20 @@
-package pl.ochnios.pamiw.models.location;
+package pl.ochnios.pamiw.models;
 
-import pl.ochnios.pamiw.models.Model;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 @Getter
 @Setter
-public class Location implements Model {
-    @JsonProperty("Key")
-    private String key;
-    @JsonProperty("LocalizedName")
-    private String localizedName;
-    @JsonProperty("Country")
-    private Country country;
-    @JsonProperty("AdministrativeArea")
-    private AdministrativeArea administrativeArea;
+public class WeatherModel implements Model {
+    private ArrayList<String> locations;
+    private String currentConditions;
+    private String drivingIndex;
+    private String next5HoursForecast;
+    private String tomorrowForecast;
 
     private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 

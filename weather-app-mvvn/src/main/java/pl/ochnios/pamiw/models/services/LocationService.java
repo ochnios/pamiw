@@ -1,9 +1,9 @@
-package pl.ochnios.pamiw.services;
+package pl.ochnios.pamiw.models.services;
 
 import pl.ochnios.pamiw.core.Consts;
-import pl.ochnios.pamiw.models.location.Location;
-import pl.ochnios.pamiw.services.shared.HttpClientUtil;
-import pl.ochnios.pamiw.services.shared.ObjectMapperUtil;
+import pl.ochnios.pamiw.models.auxiliary.location.Location;
+import pl.ochnios.pamiw.models.services.shared.HttpClientUtil;
+import pl.ochnios.pamiw.models.services.shared.ObjectMapperUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;

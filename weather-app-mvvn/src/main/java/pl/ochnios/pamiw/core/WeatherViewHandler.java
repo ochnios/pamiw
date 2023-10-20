@@ -3,8 +3,8 @@ package pl.ochnios.pamiw.core;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import pl.ochnios.pamiw.WeatherApplication;
-import pl.ochnios.pamiw.services.LocationService;
-import pl.ochnios.pamiw.services.WeatherService;
+import pl.ochnios.pamiw.models.services.LocationService;
+import pl.ochnios.pamiw.models.services.WeatherService;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;

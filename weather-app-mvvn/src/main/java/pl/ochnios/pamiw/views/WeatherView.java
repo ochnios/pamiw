@@ -1,7 +1,7 @@
 package pl.ochnios.pamiw.views;
 
-import pl.ochnios.pamiw.services.WeatherService;
-import pl.ochnios.pamiw.services.LocationService;
+import pl.ochnios.pamiw.models.services.WeatherService;
+import pl.ochnios.pamiw.models.services.LocationService;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;

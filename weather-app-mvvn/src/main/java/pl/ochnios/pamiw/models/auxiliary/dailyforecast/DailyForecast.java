@@ -1,9 +1,6 @@
-package pl.ochnios.pamiw.models.dailyforecast;
+package pl.ochnios.pamiw.models.auxiliary.dailyforecast;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 public class DailyForecast {
     @JsonProperty("Temperature")

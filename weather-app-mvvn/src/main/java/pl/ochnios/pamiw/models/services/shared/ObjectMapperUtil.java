@@ -1,4 +1,4 @@
-package pl.ochnios.pamiw.services.shared;
+package pl.ochnios.pamiw.models.services.shared;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;

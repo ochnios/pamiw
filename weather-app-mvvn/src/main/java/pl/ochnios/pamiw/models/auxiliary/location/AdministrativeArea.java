@@ -1,4 +1,4 @@
-package pl.ochnios.pamiw.models.location;
+package pl.ochnios.pamiw.models.auxiliary.location;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

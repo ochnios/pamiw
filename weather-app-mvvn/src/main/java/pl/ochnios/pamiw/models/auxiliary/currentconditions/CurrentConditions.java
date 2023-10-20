@@ -1,8 +1,6 @@
-package pl.ochnios.pamiw.models.currentconditions;
+package pl.ochnios.pamiw.models.auxiliary.currentconditions;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Date;
 
 public class CurrentConditions {
     @JsonProperty("WeatherText")

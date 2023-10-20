@@ -1,4 +1,4 @@
-package pl.ochnios.pamiw.models.hourlyforecast;
+package pl.ochnios.pamiw.models.auxiliary.hourlyforecast;
 
  import com.fasterxml.jackson.annotation.JsonProperty;
 

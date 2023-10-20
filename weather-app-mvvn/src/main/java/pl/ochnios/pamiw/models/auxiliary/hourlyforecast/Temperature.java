@@ -1,8 +1,8 @@
-package pl.ochnios.pamiw.models.currentconditions;
+package pl.ochnios.pamiw.models.auxiliary.hourlyforecast;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Metric {
+public class Temperature {
     @JsonProperty("Value")
     public double value;
 }

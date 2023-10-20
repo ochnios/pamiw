@@ -15,8 +15,8 @@ module pl.ochnios.pamiw {
     exports pl.ochnios.pamiw.views;
     opens pl.ochnios.pamiw.views to javafx.fxml;
 
-    exports pl.ochnios.pamiw.models.location to com.fasterxml.jackson.databind;
-    exports pl.ochnios.pamiw.models.currentconditions to com.fasterxml.jackson.databind;
-    exports pl.ochnios.pamiw.models.hourlyforecast to com.fasterxml.jackson.databind;
-    exports pl.ochnios.pamiw.models.dailyforecast to com.fasterxml.jackson.databind;
+    exports pl.ochnios.pamiw.models.auxiliary.location to com.fasterxml.jackson.databind;
+    exports pl.ochnios.pamiw.models.auxiliary.currentconditions to com.fasterxml.jackson.databind;
+    exports pl.ochnios.pamiw.models.auxiliary.hourlyforecast to com.fasterxml.jackson.databind;
+    exports pl.ochnios.pamiw.models.auxiliary.dailyforecast to com.fasterxml.jackson.databind;
 }

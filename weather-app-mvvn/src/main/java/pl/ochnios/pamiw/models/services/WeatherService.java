@@ -1,13 +1,13 @@
-package pl.ochnios.pamiw.services;
+package pl.ochnios.pamiw.models.services;
 
 import pl.ochnios.pamiw.core.Consts;
-import pl.ochnios.pamiw.models.currentconditions.CurrentConditions;
-import pl.ochnios.pamiw.models.currentconditions.DailyIndex;
-import pl.ochnios.pamiw.models.dailyforecast.DailyForecast;
-import pl.ochnios.pamiw.models.dailyforecast.TomorrowForecast;
-import pl.ochnios.pamiw.models.hourlyforecast.HourlyForecast;
-import pl.ochnios.pamiw.services.shared.HttpClientUtil;
-import pl.ochnios.pamiw.services.shared.ObjectMapperUtil;
+import pl.ochnios.pamiw.models.auxiliary.currentconditions.CurrentConditions;
+import pl.ochnios.pamiw.models.auxiliary.currentconditions.DailyIndex;
+import pl.ochnios.pamiw.models.auxiliary.dailyforecast.DailyForecast;
+import pl.ochnios.pamiw.models.auxiliary.dailyforecast.TomorrowForecast;
+import pl.ochnios.pamiw.models.auxiliary.hourlyforecast.HourlyForecast;
+import pl.ochnios.pamiw.models.services.shared.HttpClientUtil;
+import pl.ochnios.pamiw.models.services.shared.ObjectMapperUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;
