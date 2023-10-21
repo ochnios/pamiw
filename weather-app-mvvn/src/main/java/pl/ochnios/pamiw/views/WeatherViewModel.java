@@ -1,12 +1,12 @@
 package pl.ochnios.pamiw.views;
 
-import lombok.Getter;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import lombok.Getter;
 import pl.ochnios.pamiw.core.Consts;
 import pl.ochnios.pamiw.models.WeatherModel;
 
@@ -57,32 +57,22 @@ public class WeatherViewModel {
     }
 
     private void updateSearchResults(PropertyChangeEvent evt) {
-        Platform.runLater(() -> {
-            locations.setValue(FXCollections.observableList((List<String>) evt.getNewValue()));
-        });
+        Platform.runLater(() -> locations.setValue(FXCollections.observableList((List<String>) evt.getNewValue())));
     }
 
     private void updateCurrentConditions(PropertyChangeEvent evt) {
-        Platform.runLater(() -> {
-            currentConditions.setValue((String) evt.getNewValue());
-        });
+        Platform.runLater(() -> currentConditions.setValue((String) evt.getNewValue()));
     }
 
     private void updateDrivingIndex(PropertyChangeEvent evt) {
-        Platform.runLater(() -> {
-            drivingIndex.setValue((String) evt.getNewValue());
-        });
+        Platform.runLater(() -> drivingIndex.setValue((String) evt.getNewValue()));
     }
 
     private void updateNext5HoursForecast(PropertyChangeEvent evt) {
-        Platform.runLater(() -> {
-            next5HoursForecast.setValue((String) evt.getNewValue());
-        });
+        Platform.runLater(() -> next5HoursForecast.setValue((String) evt.getNewValue()));
     }
 
     private void updateTomorrowForecast(PropertyChangeEvent evt) {
-        Platform.runLater(() -> {
-            tomorrowForecast.setValue((String) evt.getNewValue());
-        });
+        Platform.runLater(() -> tomorrowForecast.setValue((String) evt.getNewValue()));
     }
 }
