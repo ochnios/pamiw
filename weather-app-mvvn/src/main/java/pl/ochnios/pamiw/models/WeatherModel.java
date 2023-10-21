@@ -25,7 +25,7 @@ public class WeatherModel {
     }
 
     public void addListener(String name, PropertyChangeListener listener) {
-        if(name == null) {
+        if (name == null) {
             changeSupport.addPropertyChangeListener(listener);
         } else {
             changeSupport.addPropertyChangeListener(name, listener);
@@ -36,5 +36,33 @@ public class WeatherModel {
         List<String> results = locationService.searchLocations(searchPhrase);
         changeSupport.firePropertyChange("locations", locations, results);
         locations = results;
+    }
+
+    public void fetchCurrentConditions(int cityIndex) throws Exception {
+        String cityKey = locationService.getCityKeyForIndex(cityIndex);
+        String result = weatherService.getCurrentConditions(cityKey);
+        changeSupport.firePropertyChange("currentConditions", currentConditions, result);
+        currentConditions = result;
+    }
+
+    public void fetchDrivingIndex(int cityIndex) throws Exception {
+        String cityKey = locationService.getCityKeyForIndex(cityIndex);
+        String result = weatherService.getCurrentDrivingIndex(cityKey);
+        changeSupport.firePropertyChange("drivingIndex", drivingIndex, result);
+        drivingIndex = result;
+    }
+
+    public void fetchNext5HoursForecast(int cityIndex) throws Exception {
+        String cityKey = locationService.getCityKeyForIndex(cityIndex);
+        String result = weatherService.getForecastForNext5Hours(cityKey);
+        changeSupport.firePropertyChange("next5HoursForecast", next5HoursForecast, result);
+        next5HoursForecast = result;
+    }
+
+    public void fetchTomorrowForecast(int cityIndex) throws Exception {
+        String cityKey = locationService.getCityKeyForIndex(cityIndex);
+        String result = weatherService.getForecastForTomorrow(cityKey);
+        changeSupport.firePropertyChange("tomorrowForecast", tomorrowForecast, result);
+        tomorrowForecast = result;
     }
 }

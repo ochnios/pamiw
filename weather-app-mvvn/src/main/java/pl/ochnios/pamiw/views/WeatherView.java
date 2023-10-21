@@ -29,7 +29,11 @@ public class WeatherView {
     public void init(WeatherViewModel weatherViewModel) {
         this.weatherViewModel = weatherViewModel;
 
-        resultsList.itemsProperty().bind(weatherViewModel.getLocationsProperty());
+        resultsList.itemsProperty().bind(weatherViewModel.getLocations());
+        currentConditions.textProperty().bind(weatherViewModel.getCurrentConditions());
+        drivingIndex.textProperty().bind(weatherViewModel.getDrivingIndex());
+        next5HoursForecast.textProperty().bind(weatherViewModel.getNext5HoursForecast());
+        tomorrowForecast.textProperty().bind(weatherViewModel.getTomorrowForecast());
     }
 
     @FXML
@@ -43,6 +47,11 @@ public class WeatherView {
 
     @FXML
     protected void onResultsListClick() {
-
+        int cityIndex = resultsList.getSelectionModel().getSelectedIndex();
+        try {
+            weatherViewModel.updateWeather(cityIndex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

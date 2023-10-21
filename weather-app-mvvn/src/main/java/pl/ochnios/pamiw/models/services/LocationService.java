@@ -45,7 +45,7 @@ public class LocationService {
     private List<String> getCities(Location[] locations) {
         int locationsCount = locations.length;
         if (locationsCount > 0) {
-            ArrayList<String> cities = new ArrayList<String>(locationsCount);
+            ArrayList<String> cities = new ArrayList<>(locationsCount);
             for (Location location : locations) {
                 cities.add(
                         location.getLocalizedName()
