@@ -50,6 +50,8 @@ public class CategoryService {
 
         if (categoryToUpdate == null) {
             throw new IllegalArgumentException(String.format("The category with id = %d was not found - failed to update", id));
+        } else if (category == null) {
+            throw new IllegalArgumentException("The updating category must not be null");
         }
 
         categoryToUpdate.setName(category.getName());

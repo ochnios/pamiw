@@ -54,6 +54,8 @@ public class TaskService {
 
         if (taskToUpdate == null) {
             throw new IllegalArgumentException(String.format("The task with id = %d was not found - failed to update", id));
+        } else if (task == null) {
+            throw new IllegalArgumentException("The updating task must not be null");
         }
 
         taskToUpdate.setTitle(task.getTitle());
