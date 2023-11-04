@@ -3,12 +3,12 @@ package pl.ochnios.todobackend.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.ochnios.todobackend.dtos.TaskDto;
-import pl.ochnios.todobackend.models.Task;
 import pl.ochnios.todobackend.services.TaskService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestMapping("/api/tasks")
 @RestController
 public class TaskController {
 
@@ -19,12 +19,12 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/tasks/{id}")
+    @GetMapping("/{id}")
     public TaskDto get(@PathVariable int id) {
         return TaskDto.mapToDto(taskService.getTask(id));
     }
 
-    @GetMapping("/tasks")
+    @GetMapping
     public List<TaskDto> getAll() {
         List<TaskDto> tasks = new ArrayList<>();
 
@@ -33,17 +33,17 @@ public class TaskController {
         return tasks;
     }
 
-    @PostMapping("/tasks")
+    @PostMapping
     public TaskDto create(@RequestBody TaskDto dto) {
         return TaskDto.mapToDto(taskService.createTask(taskService.mapFromDto(dto)));
     }
 
-    @PatchMapping("/tasks/{id}")
+    @PatchMapping("/{id}")
     public TaskDto update(@PathVariable int id, @RequestBody TaskDto dto) {
         return TaskDto.mapToDto(taskService.updateTask(id, taskService.mapFromDto(dto)));
     }
 
-    @DeleteMapping("/tasks/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         taskService.deleteTask(id);
     }

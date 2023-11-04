@@ -8,6 +8,7 @@ import pl.ochnios.todobackend.services.CategoryService;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestMapping("/api/categories")
 @RestController
 public class CategoryController {
 
@@ -18,12 +19,12 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     public CategoryDto get(@PathVariable int id) {
         return CategoryDto.mapToDto(categoryService.getCategory(id));
     }
 
-    @GetMapping("/categories")
+    @GetMapping
     public List<CategoryDto> getAll() {
         List<CategoryDto> categories = new ArrayList<>();
 
@@ -32,17 +33,17 @@ public class CategoryController {
         return categories;
     }
 
-    @PostMapping("/categories")
+    @PostMapping
     public CategoryDto create(@RequestBody CategoryDto dto) {
         return CategoryDto.mapToDto(categoryService.createCategory(categoryService.mapFromDto(dto)));
     }
 
-    @PatchMapping("/categories/{id}")
+    @PatchMapping("/{id}")
     public CategoryDto update(@PathVariable int id, @RequestBody CategoryDto dto) {
         return CategoryDto.mapToDto(categoryService.updateCategory(id, categoryService.mapFromDto(dto)));
     }
 
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         categoryService.deleteCategory(id);
     }

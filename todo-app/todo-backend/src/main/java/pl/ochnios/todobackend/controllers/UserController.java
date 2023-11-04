@@ -8,6 +8,7 @@ import pl.ochnios.todobackend.services.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestMapping("/api/users")
 @RestController
 public class UserController {
 
@@ -18,12 +19,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public UserDto get(@PathVariable int id) {
         return UserDto.mapToDto(userService.getUser(id));
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public List<UserDto> getAll() {
         List<UserDto> users = new ArrayList<>();
 
@@ -32,17 +33,17 @@ public class UserController {
         return users;
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public UserDto create(@RequestBody UserDto dto) {
         return UserDto.mapToDto(userService.createUser(userService.mapFromDto(dto)));
     }
 
-    @PatchMapping("/users/{id}")
+    @PatchMapping("/{id}")
     public UserDto update(@PathVariable int id, @RequestBody UserDto dto) {
         return UserDto.mapToDto(userService.updateUser(id, userService.mapFromDto(dto)));
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         userService.deleteUser(id);
     }
