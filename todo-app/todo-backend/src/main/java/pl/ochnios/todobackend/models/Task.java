@@ -1,7 +1,6 @@
 package pl.ochnios.todobackend.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -21,21 +20,27 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
+    @Column(name = "task_id")
     private int id;
 
     @NotNull(message = "The task title must not be null")
-    @Size(min = MIN_TITLE_LENGTH, max = MAX_TITLE_LENGTH, message = "The title length must be between " + MIN_TITLE_LENGTH + " and " + MAX_TITLE_LENGTH)
+    @Size(min = MIN_TITLE_LENGTH, max = MAX_TITLE_LENGTH,
+            message = "The title length must be between " + MIN_TITLE_LENGTH + " and " + MAX_TITLE_LENGTH)
     @Column(unique = true, nullable = false)
     private String title;
 
-    @Size(max = MAX_DESCRIPTION_LENGTH, message = "The description length must not be longer than " + MAX_DESCRIPTION_LENGTH)
+    @Size(max = MAX_DESCRIPTION_LENGTH,
+            message = "The description length must not be longer than " + MAX_DESCRIPTION_LENGTH)
     private String description;
 
     @Enumerated(value = EnumType.STRING)
     private TaskStatus status;
 
-    //private User assigned;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User assigned;
 
-    //private Category category;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    private Category category;
 }
