@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder(toBuilder = true)
 @Entity
 @Table(name = "tasks")
 @NotNull(message = "The task must not be null")
