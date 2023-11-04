@@ -1,23 +1,18 @@
 package pl.ochnios.todobackend.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "users")
 @NotNull(message = "The user must not be null")
@@ -45,9 +40,9 @@ public class User {
     @Email(message = "The user email must be in valid format")
     private String email;
 
-    @Valid
-    @OneToMany(mappedBy = "assigned", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Task> tasks = new ArrayList<>();
+//    @Valid
+//    @OneToMany(mappedBy = "assigned", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+//    private List<Task> tasks = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
