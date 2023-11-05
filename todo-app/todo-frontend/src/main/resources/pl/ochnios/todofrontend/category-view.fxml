@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane minHeight="370.0" minWidth="600.0" prefHeight="370.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pl.ochnios.todofrontend.views.CategoryView">
+
+<AnchorPane minHeight="370.0" minWidth="600.0" prefHeight="370.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ochnios.todofrontend.views.CategoryView">
     <children>
         <VBox prefHeight="370.0" prefWidth="600.0">
             <children>
@@ -13,41 +12,39 @@
                     <children>
                         <AnchorPane prefHeight="124.0" prefWidth="510.0">
                             <children>
-                                <TextField fx:id="categoryName" layoutY="17.0" prefHeight="25.0"
-                                           prefWidth="184.0"/>
-                                <Label prefHeight="17.0" prefWidth="46.0" text="Name"/>
+                                <TextField fx:id="categoryNameField" layoutY="67.0" prefHeight="25.0" prefWidth="184.0" />
+                                <Label layoutY="50.0" prefHeight="17.0" prefWidth="46.0" text="Name" />
+                                <Label prefHeight="17.0" prefWidth="46.0" text="Id" />
+                                <TextField fx:id="categoryIdField" layoutY="17.0" prefHeight="25.0" prefWidth="184.0" />
                             </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="124.0" prefWidth="80.0">
                             <children>
-                                <Button fx:id="searchCategories" mnemonicParsing="false"
-                                        prefHeight="25.0" prefWidth="80.0" text="Search"/>
-                                <Button fx:id="createCategories" layoutY="30.0"
-                                        mnemonicParsing="false" prefHeight="25.0"
-                                        prefWidth="80.0" text="Create"/>
-                                <Button fx:id="updateCategories" layoutY="57.0"
-                                        mnemonicParsing="false" prefHeight="25.0"
-                                        prefWidth="80.0" text="Update"/>
-                                <Button fx:id="deleteCategories" layoutY="84.0"
-                                        mnemonicParsing="false" prefHeight="25.0"
-                                        prefWidth="80.0" text="Delete"/>
+                                <Button mnemonicParsing="false" onAction="#onSearchButtonClick" prefHeight="25.0" prefWidth="80.0" text="Search" />
+                                <Button layoutY="30.0" mnemonicParsing="false" onAction="#onCreateButtonClick" prefHeight="25.0" prefWidth="80.0" text="Create" />
+                                <Button layoutY="57.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="25.0" prefWidth="80.0" text="Update" />
+                                <Button layoutY="84.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="80.0" text="Delete" />
                             </children>
                         </AnchorPane>
                     </children>
                 </HBox>
-                <TableView fx:id="categoriesTable" maxHeight="-Infinity" maxWidth="-Infinity"
-                           prefHeight="186.0" prefWidth="570.0">
+            <Pane prefHeight="21.0" prefWidth="570.0">
+               <children>
+                  <Label fx:id="infoLabel" prefHeight="17.0" prefWidth="570.0" />
+               </children></Pane>
+                <TableView fx:id="categoriesTable" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="151.0" prefWidth="570.0">
                     <columns>
-                        <TableColumn prefWidth="158.0" text="Category"/>
+                        <TableColumn fx:id="categoryIdColumn" prefWidth="63.0" text="Id" />
+                        <TableColumn fx:id="categoryNameColumn" prefWidth="171.0" text="Name" />
                     </columns>
                 </TableView>
-                <Pagination fx:id="categoriesPagination" prefHeight="21.0" prefWidth="570.0"/>
+                <Pagination fx:id="categoriesPagination" prefHeight="21.0" prefWidth="570.0" />
             </children>
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
             <padding>
-                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </padding>
         </VBox>
     </children>
