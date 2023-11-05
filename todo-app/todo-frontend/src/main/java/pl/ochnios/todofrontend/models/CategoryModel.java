@@ -39,8 +39,26 @@ public class CategoryModel {
 
         changeSupport.firePropertyChange("categories", categories, results);
         categories = results;
-
-        System.out.println(categories);
     }
 
+    public void create(String name) {
+        List<CategoryDto> created = categoryService.create(name);
+
+        changeSupport.firePropertyChange("categories", categories, created);
+
+        categories = created;
+    }
+
+    public void update(String id, String name) {
+        List<CategoryDto> updated = categoryService.update(id, name);
+
+        changeSupport.firePropertyChange("categories", categories, updated);
+
+        categories = updated;
+    }
+
+    public void delete(String id) {
+        categoryService.delete(id);
+        changeSupport.firePropertyChange("categories", null, categories);
+    }
 }

@@ -1,5 +1,6 @@
 package pl.ochnios.todofrontend.viewmodels;
 
+import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -27,9 +28,20 @@ public class CategoryViewModel {
         categoryModel.fetch(id, name);
     }
 
+    public void create(String name) {
+        categoryModel.create(name);
+    }
+
+    public void update(String id, String name) {
+        categoryModel.update(id, name);
+    }
+
+    public void delete(String id) {
+        categoryModel.delete(id);
+    }
+
     @SuppressWarnings("unchecked")
     private void updateCategories(PropertyChangeEvent evt) {
-        //Platform.runLater(() -> categories.setValue(FXCollections.observableList((List<CategoryDto>) evt.getNewValue())));
-        categories.setValue(FXCollections.observableList((List<CategoryDto>) evt.getNewValue()));
+        Platform.runLater(() -> categories.setValue(FXCollections.observableList((List<CategoryDto>) evt.getNewValue())));
     }
 }

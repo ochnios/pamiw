@@ -22,6 +22,7 @@ public class TodoApplication extends Application {
 
         stage.setTitle(STAGE_TITLE);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
