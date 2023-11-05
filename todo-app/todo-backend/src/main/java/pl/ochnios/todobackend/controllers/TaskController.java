@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ochnios.todobackend.dtos.TaskDto;
-import pl.ochnios.todobackend.models.Task;
 import pl.ochnios.todobackend.services.TaskService;
 
 import java.util.ArrayList;
@@ -31,6 +30,7 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<TaskDto>> getAll() {
         List<TaskDto> tasks = new ArrayList<>();
+
         taskService.getAllTasks().forEach((x) -> tasks.add(TaskDto.mapToDto(x)));
 
         return !tasks.isEmpty() ? ResponseEntity.ok(tasks) : ResponseEntity.noContent().build();

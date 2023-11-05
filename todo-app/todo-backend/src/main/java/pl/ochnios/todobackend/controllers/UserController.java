@@ -1,6 +1,8 @@
 package pl.ochnios.todobackend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ochnios.todobackend.dtos.UserDto;
 import pl.ochnios.todobackend.services.UserService;
@@ -20,31 +22,35 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDto get(@PathVariable int id) {
-        return UserDto.mapToDto(userService.getUser(id));
+    public ResponseEntity<UserDto> get(@PathVariable int id) {
+        UserDto user = UserDto.mapToDto(userService.getUser(id));
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping
-    public List<UserDto> getAll() {
+    public ResponseEntity<List<UserDto>> getAll() {
         List<UserDto> users = new ArrayList<>();
 
         userService.getAllUsers().forEach((user) -> users.add(UserDto.mapToDto(user)));
 
-        return users;
+        return !users.isEmpty() ? ResponseEntity.ok(users) : ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public UserDto create(@RequestBody UserDto dto) {
-        return UserDto.mapToDto(userService.createUser(userService.mapFromDto(dto)));
+    public ResponseEntity<UserDto> create(@RequestBody UserDto dto) {
+        UserDto createdUser = UserDto.mapToDto(userService.createUser(userService.mapFromDto(dto)));
+        return new ResponseEntity<UserDto>(createdUser, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public UserDto update(@PathVariable int id, @RequestBody UserDto dto) {
-        return UserDto.mapToDto(userService.updateUser(id, userService.mapFromDto(dto)));
+    public ResponseEntity<UserDto> update(@PathVariable int id, @RequestBody UserDto dto) {
+        UserDto updatedUser = UserDto.mapToDto(userService.updateUser(id, userService.mapFromDto(dto)));
+        return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         userService.deleteUser(id);
+        return ResponseEntity.ok().build();
     }
 }

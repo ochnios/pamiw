@@ -1,6 +1,8 @@
 package pl.ochnios.todobackend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ochnios.todobackend.dtos.CategoryDto;
 import pl.ochnios.todobackend.services.CategoryService;
@@ -20,31 +22,35 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryDto get(@PathVariable int id) {
-        return CategoryDto.mapToDto(categoryService.getCategory(id));
+    public ResponseEntity<CategoryDto> get(@PathVariable int id) {
+        CategoryDto category = CategoryDto.mapToDto(categoryService.getCategory(id));
+        return category != null ? ResponseEntity.ok(category) : ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public List<CategoryDto> getAll() {
+    public ResponseEntity<List<CategoryDto>> getAll() {
         List<CategoryDto> categories = new ArrayList<>();
 
         categoryService.getAllCategories().forEach((x) -> categories.add(CategoryDto.mapToDto(x)));
 
-        return categories;
+        return !categories.isEmpty() ? ResponseEntity.ok(categories) : ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public CategoryDto create(@RequestBody CategoryDto dto) {
-        return CategoryDto.mapToDto(categoryService.createCategory(categoryService.mapFromDto(dto)));
+    public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto dto) {
+        CategoryDto createdCategory = CategoryDto.mapToDto(categoryService.createCategory(categoryService.mapFromDto(dto)));
+        return new ResponseEntity<CategoryDto>(createdCategory, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public CategoryDto update(@PathVariable int id, @RequestBody CategoryDto dto) {
-        return CategoryDto.mapToDto(categoryService.updateCategory(id, categoryService.mapFromDto(dto)));
+    public ResponseEntity<CategoryDto> update(@PathVariable int id, @RequestBody CategoryDto dto) {
+        CategoryDto updatedCategory = CategoryDto.mapToDto(categoryService.updateCategory(id, categoryService.mapFromDto(dto)));
+        return ResponseEntity.ok(updatedCategory);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         categoryService.deleteCategory(id);
+        return ResponseEntity.ok().build();
     }
 }
