@@ -10,7 +10,7 @@ module pl.ochnios.todofrontend {
 
     opens pl.ochnios.todofrontend to javafx.fxml;
     exports pl.ochnios.todofrontend;
-    opens pl.ochnios.todofrontend.core to javafx.fxml;
+    opens pl.ochnios.todofrontend.core to javafx.fxml, com.fasterxml.jackson.databind;
     exports pl.ochnios.todofrontend.core;
     opens pl.ochnios.todofrontend.views to javafx.fxml;
     exports pl.ochnios.todofrontend.views;

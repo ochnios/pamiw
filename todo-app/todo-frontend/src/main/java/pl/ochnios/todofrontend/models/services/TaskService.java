@@ -1,6 +1,6 @@
 package pl.ochnios.todofrontend.models.services;
 
-import pl.ochnios.todofrontend.core.Consts;
+import pl.ochnios.todofrontend.core.EndpointConfig;
 import pl.ochnios.todofrontend.models.dtos.TaskDto;
 import pl.ochnios.todofrontend.models.services.shared.HttpClientUtil;
 import pl.ochnios.todofrontend.models.services.shared.ObjectMapperUtil;
@@ -10,14 +10,14 @@ import java.util.List;
 
 public class TaskService {
     public List<TaskDto> getAll() throws Exception {
-        String resultJson = HttpClientUtil.makeGetRequest(new URI(Consts.TASKS_EP));
+        String resultJson = HttpClientUtil.makeGetRequest(new URI(EndpointConfig.getTasksAddr()));
         TaskDto[] result = ObjectMapperUtil.getObjectMapper().readValue(resultJson, TaskDto[].class);
 
         return List.of(result);
     }
 
     public List<TaskDto> getById(String id) throws Exception {
-        String resultJson = HttpClientUtil.makeGetRequest(new URI(Consts.TASKS_EP + "/" + id));
+        String resultJson = HttpClientUtil.makeGetRequest(new URI(EndpointConfig.getTasksAddr() + "/" + id));
         TaskDto result = ObjectMapperUtil.getObjectMapper().readValue(resultJson, TaskDto.class);
 
         return List.of(result);
@@ -31,7 +31,7 @@ public class TaskService {
         TaskDto task = TaskDto.builder().title(title).description(description).status(status).build();
         String taskJson = ObjectMapperUtil.getObjectMapper().writeValueAsString(task);
 
-        String resultJson = HttpClientUtil.makePostRequest(new URI(Consts.TASKS_EP), taskJson);
+        String resultJson = HttpClientUtil.makePostRequest(new URI(EndpointConfig.getTasksAddr()), taskJson);
         TaskDto result = ObjectMapperUtil.getObjectMapper().readValue(resultJson, TaskDto.class);
 
         return List.of(result);
@@ -41,13 +41,13 @@ public class TaskService {
         TaskDto task = TaskDto.builder().title(title).description(description).status(status).build();
         String taskJson = ObjectMapperUtil.getObjectMapper().writeValueAsString(task);
 
-        String resultJson = HttpClientUtil.makePatchRequest(new URI(Consts.TASKS_EP + "/" + id), taskJson);
+        String resultJson = HttpClientUtil.makePatchRequest(new URI(EndpointConfig.getTasksAddr() + "/" + id), taskJson);
         TaskDto result = ObjectMapperUtil.getObjectMapper().readValue(resultJson, TaskDto.class);
 
         return List.of(result);
     }
 
     public void delete(String id) throws Exception {
-        String result = HttpClientUtil.makeDeleteRequest(new URI(Consts.TASKS_EP + "/" + id));
+        String result = HttpClientUtil.makeDeleteRequest(new URI(EndpointConfig.getTasksAddr() + "/" + id));
     }
 }

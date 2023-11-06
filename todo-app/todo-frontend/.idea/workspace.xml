@@ -5,20 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5246f37b-770f-4349-8b87-0b3b31eb9480" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/TaskModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/dtos/TaskDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/TaskService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/viewmodels/TaskViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/views/TaskView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pl/ochnios/todofrontend/task-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/EndpointConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/pl/ochnios/todofrontend/endpoints.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/TodoModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/TodoModule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/Consts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/ModelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/ModelFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/ViewHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/ViewHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/ViewModelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/ViewModelFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/views/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/views/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pl/ochnios/todofrontend/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pl/ochnios/todofrontend/main-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/TaskService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +159,8 @@
       <workItem from="1699258354046" duration="53000" />
       <workItem from="1699258411364" duration="1988000" />
       <workItem from="1699260407053" duration="232000" />
-      <workItem from="1699260643748" duration="69000" />
+      <workItem from="1699260643748" duration="391000" />
+      <workItem from="1699262767436" duration="1813000" />
     </task>
     <servers />
   </component>
