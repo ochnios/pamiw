@@ -1,53 +1,44 @@
 package pl.ochnios.todofrontend.models.services;
 
+import pl.ochnios.todofrontend.core.Consts;
 import pl.ochnios.todofrontend.models.dtos.CategoryDto;
+import pl.ochnios.todofrontend.models.services.shared.HttpClientUtil;
+import pl.ochnios.todofrontend.models.services.shared.ObjectMapperUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CategoryService {
-    private final List<CategoryDto> categories = new ArrayList<>();
+    public List<CategoryDto> getAll() throws Exception {
+        String resultJson = HttpClientUtil.makeGetRequest(new URI(Consts.CATEGORIES_EP));
+        CategoryDto[] categories = ObjectMapperUtil.getObjectMapper().readValue(resultJson, CategoryDto[].class);
 
-    public CategoryService() {
-        categories.add(new CategoryDto(0, "Category 1"));
-        categories.add(new CategoryDto(1, "Category 2"));
-    }
-
-    public List<CategoryDto> getAll() {
-        return categories;
+        return List.of(categories);
     }
 
     public List<CategoryDto> getById(String id) {
-        return categories.stream()
-                .filter(x -> id.equals(Integer.toString(x.getId())))
-                .collect(Collectors.toList());
+        throw new UnsupportedOperationException();
     }
 
     public List<CategoryDto> getByName(String name) {
-        return categories.stream()
-                .filter(x -> name.equals(x.getName()))
-                .collect(Collectors.toList());
+        throw new UnsupportedOperationException();
     }
 
-    public List<CategoryDto> create(String name) {
-        CategoryDto category = new CategoryDto(categories.size(), name);
-        categories.add(category);
-        return new ArrayList<>(Collections.singletonList(category));
+    public List<CategoryDto> create(String name) throws Exception {
+        CategoryDto category = new CategoryDto(-1, name);
+        String categoryJson = ObjectMapperUtil.getObjectMapper().writeValueAsString(category);
+
+        String resultJson = HttpClientUtil.makePostRequest(new URI(Consts.CATEGORIES_EP), categoryJson);
+        CategoryDto result = ObjectMapperUtil.getObjectMapper().readValue(resultJson, CategoryDto.class);
+
+        return List.of(result);
     }
 
     public List<CategoryDto> update(String id, String name) {
-        for (CategoryDto dto : categories) {
-            if (id.equals(Integer.toString(dto.getId()))) {
-                dto.setName(name);
-                return new ArrayList<>(Collections.singletonList(dto));
-            }
-        }
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     public void delete(String id) {
-        categories.remove(Integer.parseInt(id));
+        throw new UnsupportedOperationException();
     }
 }

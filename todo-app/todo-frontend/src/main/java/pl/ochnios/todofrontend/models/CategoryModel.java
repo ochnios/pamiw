@@ -26,7 +26,7 @@ public class CategoryModel {
         }
     }
 
-    public void fetch(String id, String name) {
+    public void fetch(String id, String name) throws Exception {
         List<CategoryDto> results;
 
         if (!id.isEmpty()) {
@@ -41,7 +41,7 @@ public class CategoryModel {
         categories = results;
     }
 
-    public void create(String name) {
+    public void create(String name) throws Exception {
         List<CategoryDto> created = categoryService.create(name);
 
         changeSupport.firePropertyChange("categories", categories, created);

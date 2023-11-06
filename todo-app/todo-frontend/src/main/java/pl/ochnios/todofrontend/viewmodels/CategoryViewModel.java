@@ -24,11 +24,11 @@ public class CategoryViewModel {
         categoryModel.addListener("categories", this::updateCategories);
     }
 
-    public void search(String id, String name) {
+    public void search(String id, String name) throws Exception {
         categoryModel.fetch(id, name);
     }
 
-    public void create(String name) {
+    public void create(String name) throws Exception {
         categoryModel.create(name);
     }
 

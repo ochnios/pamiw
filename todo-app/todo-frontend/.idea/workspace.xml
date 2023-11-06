@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5246f37b-770f-4349-8b87-0b3b31eb9480" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/shared/HttpClientUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/shared/ObjectMapperUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/TodoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/TodoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/Consts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/CategoryModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/CategoryModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/dtos/CategoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/dtos/CategoryDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/CategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/viewmodels/CategoryViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/viewmodels/CategoryViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/views/CategoryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/views/CategoryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pl/ochnios/todofrontend/category-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pl/ochnios/todofrontend/category-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,13 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FormatOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
@@ -48,31 +57,35 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2Xly9O1bb6mgni2xpUtJDL1C7J5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/todo-frontend&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/git/pamiw/weather-app&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.47126436&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "code.cleanup.on.save": "true",
+    "git-widget-placeholder": "feature/todo-frontend",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/git/pamiw/todo-app/todo-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.47126436",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Gradle.todo-frontend [run]">
     <configuration name="TodoApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="pl.ochnios.todofrontend.TodoApplication" />
@@ -128,7 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1699217810768</updated>
       <workItem from="1699217812518" duration="8478000" />
-      <workItem from="1699226315120" duration="1265000" />
+      <workItem from="1699226315120" duration="4005000" />
     </task>
     <servers />
   </component>

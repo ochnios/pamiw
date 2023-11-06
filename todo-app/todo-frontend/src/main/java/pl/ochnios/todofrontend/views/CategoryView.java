@@ -37,13 +37,23 @@ public class CategoryView {
 
     @FXML
     protected void onSearchButtonClick() {
-        categoryViewModel.search(categoryIdField.getText(), categoryNameField.getText());
+        try {
+            categoryViewModel.search(categoryIdField.getText(), categoryNameField.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+            infoLabel.setText(e.getMessage());
+        }
     }
 
     @FXML
     protected void onCreateButtonClick() {
-        categoryViewModel.create(categoryNameField.getText());
-        infoLabel.setText("Created successfully");
+        try {
+            categoryViewModel.create(categoryNameField.getText());
+            infoLabel.setText("Created successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            infoLabel.setText(e.getMessage());
+        }
     }
 
     @FXML
