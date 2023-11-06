@@ -7,6 +7,6 @@ A simple JavaFX application created with the goal of building a simple graphical
 ## 2. weather-app-mvvm
 The same as weather-app but adjusted to implement the MVVM pattern
 
-## 4. todo-app
+## 3. todo-app
 A simple CRUD application consisting of two modules - a backend created with Spring and a client application created with JavaFX.
 Modules are communicating via REST api.
