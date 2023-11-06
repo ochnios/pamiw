@@ -58,14 +58,24 @@ public class CategoryView {
 
     @FXML
     protected void onUpdateButtonClick() {
-        categoryViewModel.update(categoryIdField.getText(), categoryNameField.getText());
-        infoLabel.setText("Updated successfully");
+        try {
+            categoryViewModel.update(categoryIdField.getText(), categoryNameField.getText());
+            infoLabel.setText("Updated successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            infoLabel.setText(e.getMessage());
+        }
     }
 
     @FXML
     protected void onDeleteButtonClick() {
-        categoryViewModel.delete(categoryIdField.getText());
-        infoLabel.setText("Deleted successfully");
+        try {
+            categoryViewModel.delete(categoryIdField.getText());
+            infoLabel.setText("Deleted successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            infoLabel.setText(e.getMessage());
+        }
     }
 
     @FXML

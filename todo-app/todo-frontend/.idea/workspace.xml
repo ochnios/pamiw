@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5246f37b-770f-4349-8b87-0b3b31eb9480" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/shared/HttpClientUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/shared/ObjectMapperUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/Consts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/core/Consts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/CategoryModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/CategoryModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/dtos/CategoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/dtos/CategoryDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/models/services/CategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/viewmodels/CategoryViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/viewmodels/CategoryViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/views/CategoryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/ochnios/todofrontend/views/CategoryView.java" afterDir="false" />
@@ -32,7 +27,12 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -73,7 +73,7 @@
     "code.cleanup.on.save": "true",
     "git-widget-placeholder": "feature/todo-frontend",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/git/pamiw/todo-app/todo-backend",
+    "last_opened_file_path": "D:/git/pamiw/todo-app/todo-frontend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -141,7 +141,8 @@
       <option name="presentableId" value="Default" />
       <updated>1699217810768</updated>
       <workItem from="1699217812518" duration="8478000" />
-      <workItem from="1699226315120" duration="4005000" />
+      <workItem from="1699226315120" duration="4071000" />
+      <workItem from="1699256287456" duration="812000" />
     </task>
     <servers />
   </component>

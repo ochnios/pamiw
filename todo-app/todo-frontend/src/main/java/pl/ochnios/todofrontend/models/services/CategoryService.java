@@ -11,13 +11,16 @@ import java.util.List;
 public class CategoryService {
     public List<CategoryDto> getAll() throws Exception {
         String resultJson = HttpClientUtil.makeGetRequest(new URI(Consts.CATEGORIES_EP));
-        CategoryDto[] categories = ObjectMapperUtil.getObjectMapper().readValue(resultJson, CategoryDto[].class);
+        CategoryDto[] result = ObjectMapperUtil.getObjectMapper().readValue(resultJson, CategoryDto[].class);
 
-        return List.of(categories);
+        return List.of(result);
     }
 
-    public List<CategoryDto> getById(String id) {
-        throw new UnsupportedOperationException();
+    public List<CategoryDto> getById(String id) throws Exception {
+        String resultJson = HttpClientUtil.makeGetRequest(new URI(Consts.CATEGORIES_EP + "/" + id));
+        CategoryDto result = ObjectMapperUtil.getObjectMapper().readValue(resultJson, CategoryDto.class);
+
+        return List.of(result);
     }
 
     public List<CategoryDto> getByName(String name) {
@@ -34,11 +37,17 @@ public class CategoryService {
         return List.of(result);
     }
 
-    public List<CategoryDto> update(String id, String name) {
-        throw new UnsupportedOperationException();
+    public List<CategoryDto> update(String id, String name) throws Exception {
+        CategoryDto category = new CategoryDto(-1, name);
+        String categoryJson = ObjectMapperUtil.getObjectMapper().writeValueAsString(category);
+
+        String resultJson = HttpClientUtil.makePatchRequest(new URI(Consts.CATEGORIES_EP + "/" + id), categoryJson);
+        CategoryDto result = ObjectMapperUtil.getObjectMapper().readValue(resultJson, CategoryDto.class);
+
+        return List.of(result);
     }
 
-    public void delete(String id) {
-        throw new UnsupportedOperationException();
+    public void delete(String id) throws Exception {
+        String result = HttpClientUtil.makeDeleteRequest(new URI(Consts.CATEGORIES_EP + "/" + id));
     }
 }

@@ -49,7 +49,7 @@ public class CategoryModel {
         categories = created;
     }
 
-    public void update(String id, String name) {
+    public void update(String id, String name) throws Exception {
         List<CategoryDto> updated = categoryService.update(id, name);
 
         changeSupport.firePropertyChange("categories", categories, updated);
@@ -57,7 +57,7 @@ public class CategoryModel {
         categories = updated;
     }
 
-    public void delete(String id) {
+    public void delete(String id) throws Exception {
         categoryService.delete(id);
         changeSupport.firePropertyChange("categories", null, categories);
     }

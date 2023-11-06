@@ -32,11 +32,11 @@ public class CategoryViewModel {
         categoryModel.create(name);
     }
 
-    public void update(String id, String name) {
+    public void update(String id, String name) throws Exception {
         categoryModel.update(id, name);
     }
 
-    public void delete(String id) {
+    public void delete(String id) throws Exception {
         categoryModel.delete(id);
     }
 
