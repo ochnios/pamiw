@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import pl.ochnios.todofrontend.TodoApplication;
 import pl.ochnios.todofrontend.views.CategoryView;
 import pl.ochnios.todofrontend.views.MainView;
+import pl.ochnios.todofrontend.views.TaskView;
 
 import java.io.IOException;
 
@@ -26,6 +27,9 @@ public class ViewHandler {
 
         CategoryView categoryView = mainView.getCategoryView();
         categoryView.init(vmf.getCategoryViewModel());
+
+        TaskView taskView = mainView.getTaskView();
+        taskView.init(vmf.getTaskViewModel());
 
         return scene;
     }
