@@ -28,10 +28,11 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryDto>> getAll() {
+    public ResponseEntity<List<CategoryDto>> getAll(@RequestParam(required = false) Integer page) {
+        int pageNumber = page != null && page >= 0 ? page : 0;
         List<CategoryDto> categories = new ArrayList<>();
 
-        categoryService.getAllCategories().forEach((x) -> categories.add(CategoryDto.mapToDto(x)));
+        categoryService.getAllCategories(pageNumber).forEach((x) -> categories.add(CategoryDto.mapToDto(x)));
 
         return !categories.isEmpty() ? ResponseEntity.ok(categories) : ResponseEntity.noContent().build();
     }

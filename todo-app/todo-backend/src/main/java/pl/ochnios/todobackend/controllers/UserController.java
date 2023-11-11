@@ -28,10 +28,11 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAll() {
+    public ResponseEntity<List<UserDto>> getAll(@RequestParam(required = false) Integer page) {
+        int pageNumber = page != null && page >= 0 ? page : 0;
         List<UserDto> users = new ArrayList<>();
 
-        userService.getAllUsers().forEach((user) -> users.add(UserDto.mapToDto(user)));
+        userService.getAllUsers(pageNumber).forEach((user) -> users.add(UserDto.mapToDto(user)));
 
         return !users.isEmpty() ? ResponseEntity.ok(users) : ResponseEntity.noContent().build();
     }
