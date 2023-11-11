@@ -28,10 +28,11 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskDto>> getAll() {
+    public ResponseEntity<List<TaskDto>> getAll(@RequestParam(required = false) Integer page) {
+        int pageNumber = page != null && page >= 0 ? page : 0;
         List<TaskDto> tasks = new ArrayList<>();
 
-        taskService.getAllTasks().forEach((x) -> tasks.add(TaskDto.mapToDto(x)));
+        taskService.getAllTasks(pageNumber).forEach((x) -> tasks.add(TaskDto.mapToDto(x)));
 
         return !tasks.isEmpty() ? ResponseEntity.ok(tasks) : ResponseEntity.noContent().build();
     }
