@@ -32,7 +32,7 @@ public class UserController {
         int pageNumber = page != null && page >= 0 ? page : 0;
         List<UserDto> users = new ArrayList<>();
 
-        userService.getAllUsers(pageNumber).forEach((user) -> users.add(UserDto.mapToDto(user)));
+        userService.getPaginatedUsers(pageNumber).forEach((user) -> users.add(UserDto.mapToDto(user)));
 
         return !users.isEmpty() ? ResponseEntity.ok(users) : ResponseEntity.noContent().build();
     }

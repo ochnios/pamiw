@@ -11,6 +11,7 @@ import pl.ochnios.todobackend.dtos.UserDto;
 import pl.ochnios.todobackend.models.User;
 import pl.ochnios.todobackend.repositories.UserRepository;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -29,8 +30,12 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public Iterable<User> getAllUsers(int page) {
+    public Iterable<User> getPaginatedUsers(int page) {
         return userRepository.findAll(PageRequest.of(page, Consts.PAGE_SIZE));
+    }
+
+    public List<User> getALlUsers() {
+        return userRepository.findAll();
     }
 
     public User createUser(User user) {

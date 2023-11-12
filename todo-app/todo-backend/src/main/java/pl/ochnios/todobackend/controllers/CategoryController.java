@@ -2,7 +2,6 @@ package pl.ochnios.todobackend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +22,6 @@ public class CategoryController {
     @Autowired
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> get(@PathVariable int id) {
-        CategoryDto category = CategoryDto.mapToDto(categoryService.getCategory(id));
-        return category != null ? ResponseEntity.ok(category) : ResponseEntity.noContent().build();
     }
 
     @GetMapping

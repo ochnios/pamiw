@@ -13,6 +13,7 @@ import pl.ochnios.todobackend.dtos.CategoryDto;
 import pl.ochnios.todobackend.models.Category;
 import pl.ochnios.todobackend.repositories.CategoryRepository;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -38,6 +39,10 @@ public class CategoryService {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
 
         return categoryRepository.findAll(pageable);
+    }
+
+    public List<Category> getALlCategories() {
+        return categoryRepository.findAll();
     }
 
     public Category createCategory(Category category) {

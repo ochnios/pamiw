@@ -4,13 +4,19 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import pl.ochnios.todobackend.Consts;
 import pl.ochnios.todobackend.dtos.TaskDto;
+import pl.ochnios.todobackend.models.Category;
 import pl.ochnios.todobackend.models.Task;
+import pl.ochnios.todobackend.models.TaskStatus;
+import pl.ochnios.todobackend.models.User;
 import pl.ochnios.todobackend.repositories.TaskRepository;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -33,8 +39,13 @@ public class TaskService {
         return taskRepository.findById(id).orElse(null);
     }
 
-    public Iterable<Task> getAllTasks(int page) {
-        return taskRepository.findAll(PageRequest.of(page, Consts.PAGE_SIZE));
+    public Page<Task> getPaginatedTasks(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+
+        return taskRepository.findAll(pageable);
     }
 
     public Task createTask(Task task) {
@@ -44,6 +55,8 @@ public class TaskService {
             throw new ConstraintViolationException(violations);
         }
 
+        task.setStatus(TaskStatus.New);
+        
         return taskRepository.save(task);
     }
 
@@ -73,6 +86,14 @@ public class TaskService {
         }
 
         return taskRepository.save(taskToUpdate);
+    }
+
+    public List<User> getAllUsers() {
+        return userService.getALlUsers();
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryService.getALlCategories();
     }
 
     public Task mapFromDto(TaskDto dto) {

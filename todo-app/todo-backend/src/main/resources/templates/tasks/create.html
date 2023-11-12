@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TodoApp - Add task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>TodoApp</h1>
+    <hr>
+    <h2>Create task</h2>
+    <form action="#" th:action="@{/tasks/save}" th:object="${task}" method="POST">
+        <input type="text" th:field="*{title}" placeholder="Task title" class="form-control mb-4 col-4">
+        <textarea th:field="*{description}" placeholder="Description" class="form-control mb-4 col-4"></textarea>
+        <label for="user">Assigned</label>
+        <select id="user" th:field="*{userId}" class="form-select mb-4 col-4">
+            <option value="">Select user</option>
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.fullname}"></option>
+        </select>
+        <label for="category">Category</label>
+        <select id="category" th:field="*{categoryId}" class="form-select mb-4 col-4">
+            <option value="">Select category</option>
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+        <button type="submit" class="btn btn-info col-2"> Save</button>
+    </form>
+    <hr>
+    <a th:href="@{/tasks}"> Back to tasks list</a>
+</div>
+</body>
+</html>
