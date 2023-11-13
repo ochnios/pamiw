@@ -26,7 +26,7 @@ public class TaskController {
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
-
+    
     @GetMapping
     public String getPaginated(@RequestParam(required = false) Integer pageNumber,
                                @RequestParam(required = false) String sortField,
