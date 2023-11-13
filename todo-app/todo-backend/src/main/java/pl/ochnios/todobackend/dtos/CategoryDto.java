@@ -5,12 +5,11 @@ import pl.ochnios.todobackend.models.Category;
 
 @Data
 public class CategoryDto {
-
     private int id;
     private String name;
 
     public static CategoryDto mapToDto(Category category) {
-        if(category == null) return null;
+        if (category == null) return null;
 
         CategoryDto dto = new CategoryDto();
         dto.id = category.getId();

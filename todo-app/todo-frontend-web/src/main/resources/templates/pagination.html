@@ -1,0 +1,26 @@
+<div th:fragment="pagination(baseUri)">
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-5">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class="col-sm-3">
+                  <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                  <a th:if="${currentPage != i}"
+                     th:href="@{${baseUri} + '?pageNumber=' + ${i}+ '&sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">[[${i}]]</a>
+                  <span th:unless="${currentPage != i}">[[${i}]]</span>
+                  </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{${baseUri} + '?pageNumber=' + ${currentPage + 1}+ '&sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{${baseUri} + '?pageNumber=' + ${totalPages}+ '&sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
+</div>

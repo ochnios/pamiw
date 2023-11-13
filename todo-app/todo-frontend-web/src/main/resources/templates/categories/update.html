@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/head :: head('Update Category')}"></head>
+<body>
+<div class="container">
+    <div th:replace="~{/navbar :: categories-navbar}"></div>
+    <h3 class="mt-4">Update Category</h3>
+    <hr>
+    <form action="#" th:action="@{/categories/save}" th:object="${category}"
+          method="POST">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" th:field="*{name}"
+               placeholder="Category name" class="form-control mb-4 col-4">
+        <button type="submit" class="btn btn-info col-2"> Save</button>
+    </form>
+    <hr>
+    <a th:href="@{/categories}"> Back to categories list</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/head :: head('Categories')}"></head>
+<body>
+<div class="container">
+    <div th:replace="~{/navbar :: categories-navbar}"></div>
+    <hr>
+    <a th:href="@{/categories/create}" class="btn btn-primary btn-sm mb-3"> Create Category </a>
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/categories?pageNumber=' + ${currentPage} + '&sortField=id&sortDirection=' + ${reverseSortDir}}">Id</a>
+            </th>
+            <th>
+                <a th:href="@{'/categories?pageNumber=' + ${currentPage} + '&sortField=name&sortDirection=' + ${reverseSortDir}}">Name</a>
+            </th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.id}"></td>
+            <td th:text="${category.name}"></td>
+            <td><a th:href="@{/categories/update/{id}(id=${category.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/categories/delete/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="~{/pagination :: pagination('/categories')}"></div>
+</div>
+</body>
+</html>

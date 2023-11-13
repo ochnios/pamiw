@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/head :: head('Create User')}"></head>
+<body>
+<div class="container">
+    <div th:replace="~{/navbar :: users-navbar}"></div>
+    <h3 class="mt-4">Create User</h3>
+    <hr>
+    <form action="#" th:action="@{/users/save}" th:object="${user}"
+          method="POST">
+        <input type="text" th:field="*{name}" placeholder="User name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{surname}" placeholder="User surname" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{email}" placeholder="User email" class="form-control mb-4 col-4">
+        <button type="submit" class="btn btn-info col-2"> Save</button>
+    </form>
+    <hr>
+    <a th:href="@{/users}"> Back to users list</a>
+</div>
+</body>
+</html>

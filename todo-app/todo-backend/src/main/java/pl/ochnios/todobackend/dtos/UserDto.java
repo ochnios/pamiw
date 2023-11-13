@@ -5,10 +5,10 @@ import pl.ochnios.todobackend.models.User;
 
 @Data
 public class UserDto {
-
     private int id;
     private String name;
     private String surname;
+    private String fullname;
     private String email;
 
     public static UserDto mapToDto(User user) {
@@ -18,6 +18,7 @@ public class UserDto {
         dto.id = user.getId();
         dto.name = user.getName();
         dto.surname = user.getSurname();
+        dto.fullname = user.getSurname() + " " + user.getName();
         dto.email = user.getEmail();
 
         return dto;
