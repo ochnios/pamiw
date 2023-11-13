@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/head :: head('Update Task')"></head>
+<body>
+<div class="container">
+    <div th:replace="/navbar :: tasks-navbar"></div>
+    <h3 class="mt-4">Update Task</h3>
+    <hr>
+    <form action="#" th:action="@{/tasks/save}" th:object="${task}"
+          method="POST">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" th:field="*{title}" placeholder="Task title" class="form-control mb-4 col-4">
+        <textarea th:field="*{description}" placeholder="Description" class="form-control mb-4 col-4"></textarea>
+        <label for="status">Status</label>
+        <select id="status" th:field="*{status}" class="form-select mb-4 col-4">
+            <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+        </select>
+        <label for="user">Assigned</label>
+        <select id="user" th:field="*{userId}" class="form-select mb-4 col-4">
+            <option value="">Select user</option>
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.fullname}"></option>
+        </select>
+        <label for="category">Category</label>
+        <select id="category" th:field="*{categoryId}" class="form-select mb-4 col-4">
+            <option value="">Select category</option>
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+        <button type="submit" class="btn btn-info col-2"> Save</button>
+    </form>
+    <hr>
+    <a th:href="@{/tasks}"> Back to tasks list</a>
+</div>
+</body>
+</html>
