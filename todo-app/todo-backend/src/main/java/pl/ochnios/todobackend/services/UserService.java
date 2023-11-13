@@ -4,9 +4,11 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import pl.ochnios.todobackend.Consts;
 import pl.ochnios.todobackend.dtos.UserDto;
 import pl.ochnios.todobackend.models.User;
 import pl.ochnios.todobackend.repositories.UserRepository;
@@ -29,8 +31,17 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public Iterable<User> getAllUsers(int page) {
-        return userRepository.findAll(PageRequest.of(page, Consts.PAGE_SIZE));
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public Page<User> getPaginatedUsers(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+
+        return userRepository.findAll(pageable);
     }
 
     public User createUser(User user) {

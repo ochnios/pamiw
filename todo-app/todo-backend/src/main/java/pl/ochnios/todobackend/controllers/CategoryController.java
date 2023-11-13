@@ -1,10 +1,14 @@
 package pl.ochnios.todobackend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.ochnios.todobackend.dtos.CategoryDto;
+import pl.ochnios.todobackend.dtos.ResultsPage;
+import pl.ochnios.todobackend.models.Category;
 import pl.ochnios.todobackend.services.CategoryService;
 
 import java.util.ArrayList;
@@ -28,11 +32,31 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryDto>> getAll(@RequestParam(required = false) Integer page) {
-        int pageNumber = page != null && page >= 0 ? page : 0;
-        List<CategoryDto> categories = new ArrayList<>();
+    public ResponseEntity<ResultsPage<CategoryDto>> getPaginated(@RequestParam(required = false) Integer pageNumber,
+                                                                 @RequestParam(required = false) Integer pageSize,
+                                                                 @RequestParam(required = false) String sortField,
+                                                                 @RequestParam(required = false) String sortDirection,
+                                                                 Model model) {
 
-        categoryService.getAllCategories(pageNumber).forEach((x) -> categories.add(CategoryDto.mapToDto(x)));
+        pageNumber = pageNumber != null && pageNumber >= 1 ? pageNumber : 1;
+        pageSize = pageSize != null && pageSize >= 1 ? pageSize : 5;
+        sortField = sortField != null ? sortField : "id";
+        sortDirection = sortDirection != null ? sortDirection : "asc";
+
+        Page<Category> page = categoryService.getPaginatedCategories(pageNumber, pageSize, sortField, sortDirection);
+
+        List<CategoryDto> categories = new ArrayList<>();
+        page.getContent().forEach((x) -> categories.add(CategoryDto.mapToDto(x)));
+
+        ResultsPage results = new ResultsPage(categories, page.getNumber() + 1, page.getTotalPages(), page.getTotalElements());
+
+        return !categories.isEmpty() ? ResponseEntity.ok(results) : ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<CategoryDto>> getAll() {
+        List<CategoryDto> categories = new ArrayList<>();
+        categoryService.getAllCategories().forEach((x) -> categories.add(CategoryDto.mapToDto(x)));
 
         return !categories.isEmpty() ? ResponseEntity.ok(categories) : ResponseEntity.noContent().build();
     }
