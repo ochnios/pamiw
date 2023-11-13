@@ -1,72 +1,76 @@
 package pl.ochnios.todofrontendweb.services;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import pl.ochnios.todofrontendweb.Consts;
+import org.springframework.web.reactive.function.client.WebClient;
 import pl.ochnios.todofrontendweb.dtos.CategoryDto;
-import pl.ochnios.todofrontendweb.models.Category;
-import pl.ochnios.todofrontendweb.repositories.CategoryRepository;
+import pl.ochnios.todofrontendweb.dtos.ResultsPage;
+import reactor.core.publisher.Mono;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class CategoryService {
 
-    private final CategoryRepository categoryRepository;
-    private final Validator validator;
+    private final WebClient webClient;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository, Validator validator) {
-        this.categoryRepository = categoryRepository;
-        this.validator = validator;
+    public CategoryService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/api/categories").build();
     }
 
-    public Category getCategory(int id) {
-        return categoryRepository.findById(id).orElse(null);
+    public Mono<CategoryDto> getCategory(int id) {
+        return webClient.get()
+                .uri("/{id}", id)
+                .retrieve()
+                .bodyToMono(CategoryDto.class);
     }
 
-    public Iterable<Category> getAllCategories(int page) {
-        return categoryRepository.findAll(PageRequest.of(page, Consts.PAGE_SIZE));
+    public Mono<ResultsPage<CategoryDto>> getPaginatedCategories(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        return webClient.get()
+                .uri("?pageNumber={pageNumber}&pageSize={pageSize}&sortField={sortField}&sortDirection={sortDirection}",
+                        pageNumber, pageSize, sortField, sortDirection)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<ResultsPage<CategoryDto>>() {
+                });
     }
 
-    public Category createCategory(Category category) {
-        Set<ConstraintViolation<Category>> violations = validator.validate(category);
+    public Mono<List<CategoryDto>> getALlCategories() {
+        return webClient.get()
+                .uri("/all")
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<CategoryDto>>() {
+                });
+    }
 
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
-
-        return categoryRepository.save(category);
+    public Mono<CategoryDto> createCategory(CategoryDto category) {
+        return webClient.post()
+                .uri("")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(category), CategoryDto.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CategoryDto>() {
+                });
     }
 
     public void deleteCategory(int id) {
-        categoryRepository.deleteById(id);
+        webClient.delete()
+                .uri("/{id}", id)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CategoryDto>() {
+                })
+                .subscribe();
     }
 
-    public Category updateCategory(int id, Category category) {
-        Category categoryToUpdate = categoryRepository.findById(id).orElse(null);
-
-        if (categoryToUpdate == null) {
-            throw new IllegalArgumentException(String.format("The category with id = %d was not found - failed to update", id));
-        } else if (category == null) {
-            throw new IllegalArgumentException("The updating category must not be null");
-        }
-
-        categoryToUpdate.setName(category.getName());
-
-        Set<ConstraintViolation<Category>> violations = validator.validate(categoryToUpdate);
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
-
-        return categoryRepository.save(categoryToUpdate);
-    }
-
-    public Category mapFromDto(CategoryDto dto) {
-        return dto == null ? null : Category.builder().name(dto.getName()).build();
+    public Mono<CategoryDto> updateCategory(int id, CategoryDto category) {
+        return webClient.patch()
+                .uri("/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(category), CategoryDto.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CategoryDto>() {
+                });
     }
 }

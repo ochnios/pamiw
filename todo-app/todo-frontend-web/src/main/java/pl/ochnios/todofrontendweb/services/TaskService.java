@@ -1,87 +1,89 @@
 package pl.ochnios.todofrontendweb.services;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import pl.ochnios.todofrontendweb.Consts;
+import org.springframework.web.reactive.function.client.WebClient;
+import pl.ochnios.todofrontendweb.dtos.CategoryDto;
+import pl.ochnios.todofrontendweb.dtos.ResultsPage;
 import pl.ochnios.todofrontendweb.dtos.TaskDto;
-import pl.ochnios.todofrontendweb.models.Task;
-import pl.ochnios.todofrontendweb.repositories.TaskRepository;
+import pl.ochnios.todofrontendweb.dtos.UserDto;
+import reactor.core.publisher.Mono;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class TaskService {
-
-    private final TaskRepository taskRepository;
-    private final Validator validator;
+    private final WebClient webClient;
     private final UserService userService;
     private final CategoryService categoryService;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository, Validator validator, UserService userService, CategoryService categoryService) {
-        this.taskRepository = taskRepository;
-        this.validator = validator;
+    public TaskService(WebClient.Builder webClientBuilder, UserService userService, CategoryService categoryService) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/api/tasks").build();
         this.userService = userService;
         this.categoryService = categoryService;
     }
 
-    public Task getTask(int id) {
-        return taskRepository.findById(id).orElse(null);
+    public Mono<TaskDto> getTask(int id) {
+        return webClient.get()
+                .uri("/{id}", id)
+                .retrieve()
+                .bodyToMono(TaskDto.class);
     }
 
-    public Iterable<Task> getAllTasks(int page) {
-        return taskRepository.findAll(PageRequest.of(page, Consts.PAGE_SIZE));
+    public Mono<ResultsPage<TaskDto>> getPaginatedTasks(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        return webClient.get()
+                .uri("?pageNumber={pageNumber}&pageSize={pageSize}&sortField={sortField}&sortDirection={sortDirection}",
+                        pageNumber, pageSize, sortField, sortDirection)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<ResultsPage<TaskDto>>() {
+                });
     }
 
-    public Task createTask(Task task) {
-        Set<ConstraintViolation<Task>> violations = validator.validate(task);
+    public Mono<List<TaskDto>> getALlTasks() {
+        return webClient.get()
+                .uri("/all")
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<TaskDto>>() {
+                });
+    }
 
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
-
-        return taskRepository.save(task);
+    public Mono<TaskDto> createTask(TaskDto task) {
+        return webClient.post()
+                .uri("")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(task), TaskDto.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<TaskDto>() {
+                });
     }
 
     public void deleteTask(int id) {
-        taskRepository.deleteById(id);
+        webClient.delete()
+                .uri("/{id}", id)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<TaskDto>() {
+                })
+                .subscribe();
     }
 
-    public Task updateTask(int id, Task task) {
-        Task taskToUpdate = taskRepository.findById(id).orElse(null);
-
-        if (taskToUpdate == null) {
-            throw new IllegalArgumentException(String.format("The task with id = %d was not found - failed to update", id));
-        } else if (task == null) {
-            throw new IllegalArgumentException("The updating task must not be null");
-        }
-
-        taskToUpdate.setTitle(task.getTitle());
-        taskToUpdate.setDescription(task.getDescription());
-        taskToUpdate.setStatus(task.getStatus());
-        taskToUpdate.setCategory(task.getCategory());
-        taskToUpdate.setAssigned(task.getAssigned());
-
-        Set<ConstraintViolation<Task>> violations = validator.validate(taskToUpdate);
-
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
-
-        return taskRepository.save(taskToUpdate);
+    public Mono<TaskDto> updateTask(int id, TaskDto task) {
+        return webClient.patch()
+                .uri("/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(task), TaskDto.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<TaskDto>() {
+                });
     }
 
-    public Task mapFromDto(TaskDto dto) {
-        return dto == null ? null : Task.builder()
-                .title(dto.getTitle())
-                .description(dto.getDescription())
-                .status(dto.getStatus())
-                .assigned(dto.getUserId() != null ? userService.getUser(dto.getUserId()) : null)
-                .category(dto.getCategoryId() != null ? categoryService.getCategory(dto.getCategoryId()) : null)
-                .build();
+    public Mono<List<UserDto>> getAllUsers() {
+        return userService.getALlUsers();
+    }
+
+    public Mono<List<CategoryDto>> getAllCategories() {
+        return categoryService.getALlCategories();
     }
 }

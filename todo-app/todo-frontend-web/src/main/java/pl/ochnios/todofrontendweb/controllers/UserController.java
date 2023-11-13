@@ -1,17 +1,18 @@
 package pl.ochnios.todofrontendweb.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.ochnios.todofrontendweb.Consts;
+import pl.ochnios.todofrontendweb.dtos.ResultsPage;
 import pl.ochnios.todofrontendweb.dtos.UserDto;
 import pl.ochnios.todofrontendweb.services.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/api/users")
-@RestController
+@RequestMapping("/users")
+@Controller
 public class UserController {
 
     private final UserService userService;
@@ -21,37 +22,61 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDto> get(@PathVariable int id) {
-        UserDto user = UserDto.mapToDto(userService.getUser(id));
-        return ResponseEntity.ok(user);
-    }
-
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAll(@RequestParam(required = false) Integer page) {
-        int pageNumber = page != null && page >= 0 ? page : 0;
-        List<UserDto> users = new ArrayList<>();
+    public String getPaginated(@RequestParam(required = false) Integer pageNumber,
+                               @RequestParam(required = false) String sortField,
+                               @RequestParam(required = false) String sortDirection,
+                               Model model) {
 
-        userService.getAllUsers(pageNumber).forEach((user) -> users.add(UserDto.mapToDto(user)));
+        pageNumber = pageNumber != null && pageNumber >= 1 ? pageNumber : 1;
+        sortField = sortField != null ? sortField : "id";
+        sortDirection = sortDirection != null ? sortDirection : "asc";
 
-        return !users.isEmpty() ? ResponseEntity.ok(users) : ResponseEntity.noContent().build();
+        ResultsPage page = userService.getPaginatedUsers(pageNumber, Consts.PAGE_SIZE, sortField, sortDirection).block();
+        List<UserDto> users = page.getResults();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("reverseSortDir", sortDirection.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("users", users);
+
+        return "/users/users.html";
     }
 
-    @PostMapping
-    public ResponseEntity<UserDto> create(@RequestBody UserDto dto) {
-        UserDto createdUser = UserDto.mapToDto(userService.createUser(userService.mapFromDto(dto)));
-        return new ResponseEntity<UserDto>(createdUser, HttpStatus.CREATED);
+    @GetMapping("/create")
+    public String getCreationForm(Model model) {
+        UserDto user = new UserDto();
+        model.addAttribute("user", user);
+        return "/users/create.html";
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable int id, @RequestBody UserDto dto) {
-        UserDto updatedUser = UserDto.mapToDto(userService.updateUser(id, userService.mapFromDto(dto)));
-        return ResponseEntity.ok(updatedUser);
+    @GetMapping("/update/{id}")
+    public String getUpdateForm(@PathVariable int id, Model model) {
+        UserDto user = userService.getUser(id).block();
+        model.addAttribute("user", user);
+        return "/users/update.html";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+    @PostMapping("/save")
+    public String saveUser(@ModelAttribute("user") UserDto user) {
+        if (user.getId() == 0) {
+            // todo: fix error when users with the same name is added
+            userService.createUser(user).subscribe();
+        } else {
+            userService.updateUser(user.getId(), user).subscribe();
+        }
+
+        return "redirect:/users";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable(value = "id") int id) {
+        // todo: fix error when we want to delete user which is assigned to existing task
+        this.userService.deleteUser(id);
+        return "redirect:/users";
     }
 }

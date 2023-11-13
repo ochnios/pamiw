@@ -1,78 +1,76 @@
 package pl.ochnios.todofrontendweb.services;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import pl.ochnios.todofrontendweb.Consts;
+import org.springframework.web.reactive.function.client.WebClient;
+import pl.ochnios.todofrontendweb.dtos.ResultsPage;
 import pl.ochnios.todofrontendweb.dtos.UserDto;
-import pl.ochnios.todofrontendweb.models.User;
-import pl.ochnios.todofrontendweb.repositories.UserRepository;
+import reactor.core.publisher.Mono;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final Validator validator;
+    private final WebClient webClient;
 
     @Autowired
-    public UserService(UserRepository userRepository, Validator validator) {
-        this.userRepository = userRepository;
-        this.validator = validator;
+    public UserService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/api/users").build();
     }
 
-    public User getUser(int id) {
-        return userRepository.findById(id).orElse(null);
+    public Mono<UserDto> getUser(int id) {
+        return webClient.get()
+                .uri("/{id}", id)
+                .retrieve()
+                .bodyToMono(UserDto.class);
     }
 
-    public Iterable<User> getAllUsers(int page) {
-        return userRepository.findAll(PageRequest.of(page, Consts.PAGE_SIZE));
+    public Mono<ResultsPage<UserDto>> getPaginatedUsers(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        return webClient.get()
+                .uri("?pageNumber={pageNumber}&pageSize={pageSize}&sortField={sortField}&sortDirection={sortDirection}",
+                        pageNumber, pageSize, sortField, sortDirection)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<ResultsPage<UserDto>>() {
+                });
     }
 
-    public User createUser(User user) {
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
+    public Mono<List<UserDto>> getALlUsers() {
+        return webClient.get()
+                .uri("/all")
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<UserDto>>() {
+                });
+    }
 
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
-
-        return userRepository.save(user);
+    public Mono<UserDto> createUser(UserDto user) {
+        return webClient.post()
+                .uri("")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(user), UserDto.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<UserDto>() {
+                });
     }
 
     public void deleteUser(int id) {
-        userRepository.deleteById(id);
+        webClient.delete()
+                .uri("/{id}", id)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<UserDto>() {
+                })
+                .subscribe();
     }
 
-    public User updateUser(int id, User user) {
-        User userToUpdate = userRepository.findById(id).orElse(null);
-
-        if (userToUpdate == null) {
-            throw new IllegalArgumentException(String.format("The user with id = %d was not found - failed to update", id));
-        } else if (user == null) {
-            throw new IllegalArgumentException("The updating user must not be null");
-        }
-
-        userToUpdate.setName(user.getName());
-        userToUpdate.setSurname(user.getSurname());
-        userToUpdate.setEmail(user.getEmail());
-
-        Set<ConstraintViolation<User>> violations = validator.validate(userToUpdate);
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
-
-        return userRepository.save(userToUpdate);
-    }
-
-    public User mapFromDto(UserDto dto) {
-        return dto == null ? null : User.builder()
-                .name(dto.getName())
-                .surname(dto.getSurname())
-                .email(dto.getEmail())
-                .build();
+    public Mono<UserDto> updateUser(int id, UserDto user) {
+        return webClient.patch()
+                .uri("/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(user), UserDto.class)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<UserDto>() {
+                });
     }
 }

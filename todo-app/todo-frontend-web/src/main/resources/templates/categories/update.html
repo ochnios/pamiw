@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/head :: head('Update Category')"></head>
+<head th:replace="~{/head :: head('Update Category')}"></head>
 <body>
 <div class="container">
-    <div th:replace="/navbar :: categories-navbar"></div>
+    <div th:replace="~{/navbar :: categories-navbar}"></div>
     <h3 class="mt-4">Update Category</h3>
     <hr>
     <form action="#" th:action="@{/categories/save}" th:object="${category}"
