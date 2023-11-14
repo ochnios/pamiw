@@ -5,6 +5,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.ochnios.todofrontendweb.conf.Endpoints;
 import pl.ochnios.todofrontendweb.dtos.CategoryDto;
 import pl.ochnios.todofrontendweb.dtos.ResultsPage;
 import reactor.core.publisher.Mono;
@@ -17,8 +18,8 @@ public class CategoryService {
     private final WebClient webClient;
 
     @Autowired
-    public CategoryService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/api/categories").build();
+    public CategoryService(WebClient.Builder webClientBuilder, Endpoints endpoints) {
+        this.webClient = webClientBuilder.baseUrl(endpoints.getBaseUrl() + endpoints.getCategoriesPath()).build();
     }
 
     public Mono<CategoryDto> getCategory(int id) {

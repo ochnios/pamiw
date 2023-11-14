@@ -5,6 +5,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.ochnios.todofrontendweb.conf.Endpoints;
 import pl.ochnios.todofrontendweb.dtos.ResultsPage;
 import pl.ochnios.todofrontendweb.dtos.UserDto;
 import reactor.core.publisher.Mono;
@@ -17,8 +18,8 @@ public class UserService {
     private final WebClient webClient;
 
     @Autowired
-    public UserService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/api/users").build();
+    public UserService(WebClient.Builder webClientBuilder, Endpoints endpoints) {
+        this.webClient = webClientBuilder.baseUrl(endpoints.getBaseUrl() + endpoints.getUsersPath()).build();
     }
 
     public Mono<UserDto> getUser(int id) {

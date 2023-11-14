@@ -5,6 +5,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.ochnios.todofrontendweb.conf.Endpoints;
 import pl.ochnios.todofrontendweb.dtos.CategoryDto;
 import pl.ochnios.todofrontendweb.dtos.ResultsPage;
 import pl.ochnios.todofrontendweb.dtos.TaskDto;
@@ -20,8 +21,8 @@ public class TaskService {
     private final CategoryService categoryService;
 
     @Autowired
-    public TaskService(WebClient.Builder webClientBuilder, UserService userService, CategoryService categoryService) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/api/tasks").build();
+    public TaskService(WebClient.Builder webClientBuilder, UserService userService, CategoryService categoryService, Endpoints endpoints) {
+        this.webClient = webClientBuilder.baseUrl(endpoints.getBaseUrl() + endpoints.getTasksPath()).build();
         this.userService = userService;
         this.categoryService = categoryService;
     }
