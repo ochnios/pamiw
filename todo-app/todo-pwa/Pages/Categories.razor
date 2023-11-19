@@ -89,13 +89,13 @@ else
     {
         if (edit == false)
         {
-            await Http.PostAsJsonAsync<Category>("api/categories", newCategory);
+            await Http.PostAsJsonAsync<Category>("categories", newCategory);
             await OnInitializedAsync();
             newCategory = new Category();
         }
         else
         {
-            await Http.PatchAsJsonAsync<Category>("api/categories/" + newCategory.Id, newCategory);
+            await Http.PatchAsJsonAsync<Category>("categories/" + newCategory.Id, newCategory);
             await OnInitializedAsync();
             edit = false;
             newCategory = new Category();
@@ -103,20 +103,20 @@ else
     }
     private async Task DeleteCategory(int id)
     {
-        await Http.DeleteAsync("api/categories/" + id.ToString());
+        await Http.DeleteAsync("categories/" + id.ToString());
         await OnInitializedAsync();
     }
 
     private async Task GetCategory(int id)
     {
-        newCategory = await Http.GetFromJsonAsync<Category>("api/categories/" + id.ToString());
+        newCategory = await Http.GetFromJsonAsync<Category>("categories/" + id.ToString());
         edit = true;
 
     }
 
     private async Task LoadPage()
     {
-        results = await Http.GetFromJsonAsync<Results>($"/api/categories?pageNumber={pageNumber}");
+        results = await Http.GetFromJsonAsync<Results>($"categories?pageNumber={pageNumber}");
     }
 
     private async Task PreviousPage()
