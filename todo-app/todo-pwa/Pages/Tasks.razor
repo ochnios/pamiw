@@ -1,0 +1,206 @@
+﻿@page "/tasks"
+@inject HttpClient Http
+@using System.Text.Json.Serialization;
+@using todo_pwa.Models;
+
+
+<PageTitle>TodoTasks</PageTitle>
+
+<h1>TodoTasks</h1>
+
+@if (results == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-12">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>User</th>
+                        <th>Category</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in results.Data)
+                    {
+                        <tr>
+                            <td>@task.Id</td>
+                            <td>@task.Title</td>
+                            <td>@task.Status</td>
+                            <td>@task.User</td>
+                            <td>@task.Category</td>
+                            <td>
+                                <button @onclick="@(()=>GetTodoTask(@task.Id))" class="btn btn-sm btn-primary">Edit</button>
+                            </td>
+                            <td>
+                                <button @onclick="@(()=>DeleteTodoTask(@task.Id))" class="btn btn-sm btn-primary">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Previous" disabled="@IsPreviousDisabled" @onclick="PreviousPage">
+                                <span aria-hidden="true">Previous</span>
+                            </button>
+                        </li>
+                        <li class="page-item disabled"><a class="page-link">Page @results.CurrentPage of @results.TotalPages</a></li>
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Next" disabled="@IsNextDisabled" @onclick="NextPage">
+                                <span aria-hidden="true">Next</span>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="col-lg-1 col-md-1 col-sm-12">&nbsp;</div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <h3>Add TodoTask</h3>
+            <br>
+            <input type="text" @bind-value="newTodoTask.Title" class="form-control mb-3" placeholder="Enter Title" />
+            <textarea @bind="newTodoTask.Description" class="form-control mb-3" placeholder="Enter Description"></textarea>
+            
+            <select @bind="newTodoTask.Status" class="form-control mb-3">
+                <option selected value="New">New</option>
+                <option value="InProgress">InProgress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+
+            <select @bind="newTodoTask.UserId" class="form-control mb-3">
+                @if (newTodoTask.User == null)
+                {
+                    <option selected disabled>Assign User</option>
+                }
+
+                @foreach (var userOption in userOptions)
+                {
+                    if (newTodoTask.UserId == userOption.Id)
+                    {
+                        <option selected value="@userOption.Id">@userOption.Fullname</option>
+                    } else
+                    {
+                        <option value="@userOption.Id">@userOption.Fullname</option>
+                    }
+                }
+            </select>
+
+            <select @bind="newTodoTask.CategoryId" class="form-control mb-3">
+                @if (newTodoTask.Category == null)
+                {
+                    <option selected disabled>Assign Category</option>
+                }
+
+                @foreach (var categoryOption in categoryOptions)
+                {
+                    if (newTodoTask.CategoryId == categoryOption.Id)
+                    {
+                        <option selected value="@categoryOption.Id">@categoryOption.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@categoryOption.Id">@categoryOption.Name</option>
+                    }
+                }
+            </select>
+
+            <button class="btn btn-block btn-primary" @onclick="SubmitTodoTask">Submit</button>
+        </div>
+    </div>
+}
+
+@code {
+    private Results<TodoTask> results;
+    private TodoTask newTodoTask = new TodoTask();
+    private bool edit = false;
+
+    private List<User> userOptions = new List<User>();
+    private List<Category> categoryOptions = new List<Category>();
+
+    private bool IsPreviousDisabled => results.CurrentPage == 1;
+    private bool IsNextDisabled => results.CurrentPage >= results.TotalPages;
+    private int pageNumber = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPage();
+        userOptions = await GetUserOptions();
+        categoryOptions = await GetCategoryOptions();
+    }
+
+    private async Task SubmitTodoTask()
+    {
+        if (edit == false)
+        {
+            await Http.PostAsJsonAsync<TodoTask>("tasks", newTodoTask);
+            await OnInitializedAsync();
+            newTodoTask = new TodoTask();
+        }
+        else
+        {
+            await Http.PatchAsJsonAsync<TodoTask>("tasks/" + newTodoTask.Id, newTodoTask);
+            await OnInitializedAsync();
+            edit = false;
+            newTodoTask = new TodoTask();
+        }
+    }
+    private async Task DeleteTodoTask(int id)
+    {
+        await Http.DeleteAsync("tasks/" + id.ToString());
+        await OnInitializedAsync();
+    }
+
+    private async Task GetTodoTask(int id)
+    {
+        newTodoTask = await Http.GetFromJsonAsync<TodoTask>("tasks/" + id.ToString());
+        edit = true;
+    }
+
+    private async Task<List<User>> GetUserOptions()
+    {
+        return await Http.GetFromJsonAsync<List<User>>("users/all");
+    }
+
+    private async Task<List<Category>> GetCategoryOptions()
+    {
+        return await Http.GetFromJsonAsync<List<Category>>("categories/all");
+    }
+
+    private async Task LoadPage()
+    {
+        results = await Http.GetFromJsonAsync<Results<TodoTask>>($"tasks?pageNumber={pageNumber}");
+    }
+
+    private async Task PreviousPage()
+    {
+        if (pageNumber > 1)
+        {
+            pageNumber--;
+            await LoadPage();
+        }
+    }
+
+    private async Task NextPage()
+    {
+        if (pageNumber < results.TotalPages)
+        {
+            pageNumber++;
+            await LoadPage();
+        }
+    }
+}

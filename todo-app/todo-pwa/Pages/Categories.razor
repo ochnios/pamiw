@@ -1,6 +1,6 @@
 ﻿@page "/categories"
 @inject HttpClient Http
-@using System.Text.Json.Serialization;
+@using todo_pwa.Models;
 
 
 <PageTitle>Categories</PageTitle>
@@ -25,7 +25,7 @@ else
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var category in results.Categories)
+                    @foreach (var category in results.Data)
                     {
                         <tr>
                             <td>@category.Id</td>
@@ -72,7 +72,7 @@ else
 }
 
 @code {
-    private Results results;
+    private Results<Category> results;
     private Category newCategory = new Category();
     private bool edit = false;
 
@@ -116,7 +116,7 @@ else
 
     private async Task LoadPage()
     {
-        results = await Http.GetFromJsonAsync<Results>($"categories?pageNumber={pageNumber}");
+        results = await Http.GetFromJsonAsync<Results<Category>>($"categories?pageNumber={pageNumber}");
     }
 
     private async Task PreviousPage()
@@ -135,20 +135,5 @@ else
             pageNumber++;
             await LoadPage();
         }
-    }
-
-    public class Results
-    {
-        [JsonPropertyName("results")]
-        public Category[] Categories { get; set; }
-        public int CurrentPage { get; set; }
-        public int TotalPages { get; set; }
-        public int TotalElements { get; set; }
-    }
-
-    public class Category
-    {
-        public int Id { get; set; }
-        public string? Name { get; set; }
     }
 }

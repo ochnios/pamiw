@@ -1,6 +1,6 @@
 ﻿@page "/users"
 @inject HttpClient Http
-@using System.Text.Json.Serialization;
+@using todo_pwa.Models;
 
 
 <PageTitle>Users</PageTitle>
@@ -27,7 +27,7 @@ else
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var user in results.Users)
+                    @foreach (var user in results.Data)
                     {
                         <tr>
                             <td>@user.Id</td>
@@ -78,7 +78,7 @@ else
 }
 
 @code {
-    private Results results;
+    private Results<User> results;
     private User newUser = new User();
     private bool edit = false;
 
@@ -122,7 +122,7 @@ else
 
     private async Task LoadPage()
     {
-        results = await Http.GetFromJsonAsync<Results>($"users?pageNumber={pageNumber}");
+        results = await Http.GetFromJsonAsync<Results<User>>($"users?pageNumber={pageNumber}");
     }
 
     private async Task PreviousPage()
@@ -141,22 +141,5 @@ else
             pageNumber++;
             await LoadPage();
         }
-    }
-
-    public class Results
-    {
-        [JsonPropertyName("results")]
-        public User[] Users { get; set; }
-        public int CurrentPage { get; set; }
-        public int TotalPages { get; set; }
-        public int TotalElements { get; set; }
-    }
-
-    public class User
-    {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Surname { get; set; }
-        public string? Email { get; set; }
     }
 }
