@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="todo_maui.Views.TaskCreateView"
+             Title="Create task">
+    <VerticalStackLayout>
+        <Grid BindingContext="{Binding Task}"  Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Title:" Grid.Row="0" Grid.Column="0"/>
+            <Entry Text="{Binding Title}" Grid.Row="0" Grid.Column="1"/>
+
+            <Label Text="Description:" Grid.Row="1" Grid.Column="0"/>
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Description}" />
+
+            <Label Text="Status:" Grid.Row="2" Grid.Column="0"/>
+            <Entry Text="{Binding Status}" Grid.Row="2" Grid.Column="1"/>
+
+            <Label Text="UserId:" Grid.Row="3" Grid.Column="0"/>
+            <Entry Text="{Binding UserId}" Grid.Row="3" Grid.Column="1"/>
+
+            <Label Text="CategoryId:" Grid.Row="4" Grid.Column="0"/>
+            <Entry Text="{Binding CategoryId}" Grid.Row="4" Grid.Column="1"/>
+        </Grid>
+        <HorizontalStackLayout >
+            <Button Command="{Binding SaveCommand}" Text="Save" >
+            </Button>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
