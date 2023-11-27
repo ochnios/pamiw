@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="todo_maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:todo_maui"
+    xmlns:views="clr-namespace:todo_maui.Views"
+    Shell.FlyoutBehavior="Flyout"
+    Title="TodoMauiApp">
+
+    <FlyoutItem Title="Home">
+        <Tab>
+            <ShellContent
+                Title="Home"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Tasks">
+        <Tab>
+            <ShellContent Title="Tasks" ContentTemplate="{DataTemplate views:TasksView}" Route="TasksView" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Categories">
+        <Tab>
+            <ShellContent Title="Categories" ContentTemplate="{DataTemplate views:CategoriesView}" Route="CategoriesView" />
+        </Tab>
+    </FlyoutItem>
+
+</Shell>
