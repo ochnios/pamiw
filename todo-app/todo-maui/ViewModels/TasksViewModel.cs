@@ -47,7 +47,7 @@ namespace todo_maui.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(TaskDetailsView), true, new Dictionary<string, object>
         {
-            {"Task", task },
+            {"TodoTask", task },
             {nameof(TasksViewModel), this }
         });
 
@@ -60,7 +60,7 @@ namespace todo_maui.ViewModels
             SelectedTask = new TodoTask();
             await Shell.Current.GoToAsync(nameof(TaskCreateView), true, new Dictionary<string, object>
         {
-            {"Task", SelectedTask },
+            {"TodoTask", SelectedTask },
             {nameof(TasksViewModel), this }
         });
         }

@@ -6,8 +6,8 @@ namespace todo_maui.Views
     {
         public TaskCreateView(TaskCreateViewModel viewModel)
         {
-            InitializeComponent();
             BindingContext = viewModel;
+            InitializeComponent();
         }
     }
 }

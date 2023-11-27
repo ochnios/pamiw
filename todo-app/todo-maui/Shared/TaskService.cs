@@ -15,7 +15,7 @@ namespace todo_maui.Shared
 
         public async Task<Results<TodoTask>> GetTasksAsync()
         {
-            var response = await _httpClient.GetAsync("tasks");
+            var response = await _httpClient.GetAsync("tasks?pageNumber=1&pageSize=1000");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Results<TodoTask>>(content);
@@ -41,7 +41,7 @@ namespace todo_maui.Shared
         public async Task<TodoTask> UpdateTaskAsync(int id, TodoTask task)
         {
             var taskJson = new StringContent(JsonSerializer.Serialize(task), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PutAsync($"tasks/{id}", taskJson);
+            var response = await _httpClient.PatchAsync($"tasks/{id}", taskJson);
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<TodoTask>(content);

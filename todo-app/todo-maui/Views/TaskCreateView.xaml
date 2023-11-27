@@ -4,7 +4,7 @@
              x:Class="todo_maui.Views.TaskCreateView"
              Title="Create task">
     <VerticalStackLayout>
-        <Grid BindingContext="{Binding Task}"  Margin="10">
+        <Grid BindingContext="{Binding TodoTask}"  Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -27,8 +27,8 @@
             <Label Text="Status:" Grid.Row="2" Grid.Column="0"/>
             <Entry Text="{Binding Status}" Grid.Row="2" Grid.Column="1"/>
 
-            <Label Text="UserId:" Grid.Row="3" Grid.Column="0"/>
-            <Entry Text="{Binding UserId}" Grid.Row="3" Grid.Column="1"/>
+            <!--Label Text="UserId:" Grid.Row="3" Grid.Column="0"/>
+            <Entry Text="{Binding UserId}" Grid.Row="3" Grid.Column="1"/-->
 
             <Label Text="CategoryId:" Grid.Row="4" Grid.Column="0"/>
             <Entry Text="{Binding CategoryId}" Grid.Row="4" Grid.Column="1"/>

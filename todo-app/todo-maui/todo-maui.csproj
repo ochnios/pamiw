@@ -54,11 +54,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\CategoryCreateView.xaml.cs">
+	    <DependentUpon>CategoryCreateView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\TaskCreateView.xaml.cs">
 	    <DependentUpon>TaskCreateView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\CategoryDetailsView.xaml.cs">
+	    <DependentUpon>CategoryDetailsView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\TaskDetailsView.xaml.cs">
 	    <DependentUpon>TaskDetailsView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\CategoriesView.xaml.cs">
+	    <DependentUpon>CategoriesView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\TasksView.xaml.cs">
 	    <DependentUpon>TasksView.xaml</DependentUpon>
@@ -66,10 +75,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\CategoryCreateView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\TaskCreateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\CategoryDetailsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\TaskDetailsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CategoriesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\TasksView.xaml">

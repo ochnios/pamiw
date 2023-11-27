@@ -2,9 +2,9 @@ using todo_maui.ViewModels;
 
 namespace todo_maui.Views
 {
-    public partial class TaskDetailsView : ContentPage
+    public partial class CategoryCreateView : ContentPage
     {
-        public TaskDetailsView(TaskDetailsViewModel viewModel)
+        public CategoryCreateView(CategoryCreateViewModel viewModel)
         {
             BindingContext = viewModel;
             InitializeComponent();

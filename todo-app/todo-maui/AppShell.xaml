@@ -21,5 +21,10 @@
             <ShellContent Title="Tasks" ContentTemplate="{DataTemplate views:TasksView}" Route="TasksView" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Categories">
+        <Tab>
+            <ShellContent Title="Categories" ContentTemplate="{DataTemplate views:CategoriesView}" Route="CategoriesView" />
+        </Tab>
+    </FlyoutItem>
 
 </Shell>
