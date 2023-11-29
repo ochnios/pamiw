@@ -6,6 +6,12 @@ VALUES ('Maths');
 INSERT INTO CATEGORIES (NAME)
 VALUES ('Art');
 
+-- Inserting entries into ROLES
+INSERT INTO ROLES (NAME)
+VALUES ('ADMIN');
+INSERT INTO ROLES (NAME)
+VALUES ('USER');
+
 -- Inserting entries into USERS
 INSERT INTO USERS (NAME, SURNAME, EMAIL)
 VALUES ('John', 'Smith', 'johnsmith@gmail.com');
