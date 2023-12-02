@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.ochnios.todobackend.dtos.AuthDto;
 import pl.ochnios.todobackend.dtos.LoginDto;
 import pl.ochnios.todobackend.dtos.RegisterDto;
 import pl.ochnios.todobackend.models.User;
 import pl.ochnios.todobackend.repositories.RoleRepository;
 import pl.ochnios.todobackend.repositories.UserRepository;
+import pl.ochnios.todobackend.security.JwtProvider;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -25,25 +27,28 @@ public class AuthController {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtProvider jwtProvider;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-                          RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+                          RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtProvider = jwtProvider;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<AuthDto> login(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtProvider.generateToken(authentication);
 
-        return new ResponseEntity<>("User logged in successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(new AuthDto(token), HttpStatus.OK);
     }
 
     @PostMapping("/register")
