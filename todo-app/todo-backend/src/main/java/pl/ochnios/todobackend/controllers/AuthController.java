@@ -37,8 +37,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
-        System.out.println(loginDto.getPassword() + " " + passwordEncoder.encode(loginDto.getPassword()));
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
         );
@@ -55,18 +53,15 @@ public class AuthController {
             return new ResponseEntity<>("Email is taken!", HttpStatus.BAD_REQUEST);
         }
 
-        String encodedPassword = passwordEncoder.encode(registerDto.getPassword());
-
         User user = User.builder()
                 .name(registerDto.getName())
                 .surname(registerDto.getSurname())
                 .email(email)
-                .password(encodedPassword)
+                .password(passwordEncoder.encode(registerDto.getPassword()))
                 .role(roleRepository.findByName("USER").get())
                 .build();
 
         User saved = userRepository.save(user);
-        System.out.println(registerDto.getPassword() + " " + saved.getPassword());
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
     }
