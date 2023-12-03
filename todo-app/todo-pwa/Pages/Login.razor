@@ -1,0 +1,44 @@
+﻿@page "/login"
+@inject IJSRuntime js
+@inject AuthService authService
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+
+<PageTitle>Login</PageTitle>
+
+<h1>Login</h1>
+
+<div class="row">
+    <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
+        <div class="mb-3">
+            <label>Email</label>
+            <input @bind="model.Email" class="form-control" placeholder="User Name" />
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input @bind="model.Password" type="password" class="form-control" placeholder="Password" />
+        </div>
+        <div class="mb-3 d-grid gap-2">
+            <button @onclick="LogIn" class="btn btn-primary">Login</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private LoginModel model = new LoginModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        authService.Logout();
+    }
+
+    private async Task LogIn()
+    {
+        if (!await authService.Login(model))
+        {
+            await js.InvokeVoidAsync("alert", "Invalid User Name or Password");
+            return;
+        }
+        navManager.NavigateTo("/", true);
+    }
+}
