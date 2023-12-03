@@ -9,10 +9,10 @@
 <div class="row">
     <h3 class="text-center">Login</h3>
     <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
-        <EditForm Model="model" OnValidSubmit="LogIn">
+        <EditForm Model="model" OnValidSubmit="LoginUser">
             <div class="mb-3">
                 <label>Email</label>
-                <InputText @bind-Value="model.Email" class="form-control" placeholder="User Name" />
+                <InputText @bind-Value="model.Email" class="form-control" placeholder="User Email" />
             </div>
             <div class="mb-3">
                 <label>Password</label>
@@ -33,7 +33,7 @@
         authService.Logout();
     }
 
-    private async Task LogIn()
+    private async Task LoginUser()
     {
         if (!await authService.Login(model))
         {

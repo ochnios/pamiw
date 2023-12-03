@@ -35,6 +35,18 @@ namespace todo_pwa.Services
             return false;
         }
 
+        public async Task<Boolean> Register(RegisterModel user)
+        {
+            var response = await _http.PostAsJsonAsync("/api/auth/register", user);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task Logout() {
             await _localStorage.RemoveItemAsync("jwt");
             _authStateProvider.SetUserLoggedOut();
