@@ -70,11 +70,17 @@ else
         <div class="col-lg-1 col-md-1 col-sm-12">&nbsp;</div>
 
         <div class="col-lg-4 col-md-4 col-sm-12">
-            <h3>Add TodoTask</h3>
+            @if(edit == true) {
+                <h3>Edit TodoTask</h3>
+            } else
+            {
+                <h3>Add TodoTask</h3>
+            }
+
             <br>
             <input type="text" @bind-value="newTodoTask.Title" class="form-control mb-3" placeholder="Enter Title" />
             <textarea @bind="newTodoTask.Description" class="form-control mb-3" placeholder="Enter Description"></textarea>
-            
+
             <select @bind="newTodoTask.Status" class="form-control mb-3">
                 <option selected value="New">New</option>
                 <option value="InProgress">InProgress</option>
@@ -93,7 +99,8 @@ else
                     if (newTodoTask.UserId == userOption.Id)
                     {
                         <option selected value="@userOption.Id">@userOption.Fullname</option>
-                    } else
+                    }
+                    else
                     {
                         <option value="@userOption.Id">@userOption.Fullname</option>
                     }
@@ -120,6 +127,7 @@ else
             </select>
 
             <button class="btn btn-block btn-primary" @onclick="SubmitTodoTask">Submit</button>
+            <button class="btn btn-block btn-secondary" @onclick="CancelTodoTask">Cancel</button>
         </div>
     </div>
 }
@@ -159,6 +167,13 @@ else
             newTodoTask = new TodoTask();
         }
     }
+
+    private async Task CancelTodoTask()
+    {
+        edit = false;
+        newTodoTask = new TodoTask();
+    }
+
     private async Task DeleteTodoTask(int id)
     {
         await Http.DeleteAsync("tasks/" + id.ToString());

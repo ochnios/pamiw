@@ -67,12 +67,20 @@ else
         <div class="col-lg-1 col-md-1 col-sm-12">&nbsp;</div>
 
         <div class="col-lg-4 col-md-4 col-sm-12">
-            <h3>Add User</h3>
+            @if (edit == true)
+            {
+                <h3>Edit User</h3>
+            }
+            else
+            {
+                <h3>Add User</h3>
+            }
             <br>
             <input type="text" @bind-value="newUser.Name" class="form-control mb-3" placeholder="Enter Name" />
             <input type="text" @bind-value="newUser.Surname" class="form-control mb-3" placeholder="Enter Surname" />
             <input type="text" @bind-value="newUser.Email" class="form-control mb-3" placeholder="Enter Email" />
             <button class="btn btn-block btn-primary" @onclick="SubmitUser">Submit</button>
+            <button class="btn btn-block btn-secondary" @onclick="CancelUser">Cancel</button>
         </div>
     </div>
 }
@@ -107,6 +115,13 @@ else
             newUser = new User();
         }
     }
+
+    private async Task CancelUser()
+    {
+        edit = false;
+        newUser = new User();
+    }
+
     private async Task DeleteUser(int id)
     {
         await Http.DeleteAsync("users/" + id.ToString());
