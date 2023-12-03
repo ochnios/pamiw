@@ -12,13 +12,13 @@ VALUES ('ADMIN');
 INSERT INTO ROLES (NAME)
 VALUES ('USER');
 
--- Inserting entries into USERS
-INSERT INTO USERS (NAME, SURNAME, EMAIL)
-VALUES ('John', 'Smith', 'johnsmith@gmail.com');
-INSERT INTO USERS (NAME, SURNAME, EMAIL)
-VALUES ('Jane', 'Doe', 'janedoe@gmail.com');
-INSERT INTO USERS (NAME, SURNAME, EMAIL)
-VALUES ('Robert', 'Martin', 'robertmartin@gmail.com');
+-- Inserting entries into USERS (password hashes for TrudneHaslo!)
+INSERT INTO USERS (NAME, SURNAME, EMAIL, PASSWORD)
+VALUES ('John', 'Smith', 'johnsmith@gmail.com', '$2a$10$e.7L6cLDcQMh6mzLvrG7N.XwLsVgCmb16LxTSZHlsxlWDNizKfZo2');
+INSERT INTO USERS (NAME, SURNAME, EMAIL, PASSWORD)
+VALUES ('Jane', 'Doe', 'janedoe@gmail.com', '$2a$10$e.7L6cLDcQMh6mzLvrG7N.XwLsVgCmb16LxTSZHlsxlWDNizKfZo2');
+INSERT INTO USERS (NAME, SURNAME, EMAIL, PASSWORD)
+VALUES ('Robert', 'Martin', 'robertmartin@gmail.com', '$2a$10$e.7L6cLDcQMh6mzLvrG7N.XwLsVgCmb16LxTSZHlsxlWDNizKfZo2');
 
 -- Inserting entries into TASKS
 INSERT INTO TASKS (CATEGORY_ID, USER_ID, TITLE, DESCRIPTION, STATUS)

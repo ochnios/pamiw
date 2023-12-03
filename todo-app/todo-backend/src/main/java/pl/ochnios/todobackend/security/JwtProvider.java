@@ -6,7 +6,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.NoArgsConstructor;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +17,7 @@ import java.util.Date;
 public class JwtProvider {
 
     private final static SecretKey pwd = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SecurityConsts.JWT_SECRET));
+    private Jws<Claims> jwsClaims;
 
     public String generateToken(Authentication authentication) {
         String user = authentication.getName();
@@ -33,15 +33,15 @@ public class JwtProvider {
     }
 
     public String getUsernameFromJwt(String token) {
-        return getJwsClaims(token).getPayload().getSubject();
+        return jwsClaims.getPayload().getSubject();
     }
 
     public boolean validateToken(String token) {
         try {
-            getJwsClaims(token);
+            jwsClaims = getJwsClaims(token);
             return true;
         } catch (Exception ex) {
-            throw new AuthenticationCredentialsNotFoundException("Expired or incorrect token!");
+            return false;
         }
     }
 

@@ -8,10 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.ochnios.todobackend.dtos.AuthDto;
 import pl.ochnios.todobackend.dtos.LoginDto;
 import pl.ochnios.todobackend.dtos.RegisterDto;
@@ -22,6 +19,7 @@ import pl.ochnios.todobackend.security.JwtProvider;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
@@ -65,8 +63,6 @@ public class AuthController {
                 .password(passwordEncoder.encode(registerDto.getPassword()))
                 .role(roleRepository.findByName("USER").get())
                 .build();
-
-        User saved = userRepository.save(user);
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
     }
