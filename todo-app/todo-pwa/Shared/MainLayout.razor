@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@inject AuthService authService
+@inject NavigationManager navManager
 
 <div class="page">
     <div class="sidebar">
@@ -8,6 +10,15 @@
     <main>
         <div class="top-row px-4">
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <AuthorizeView>
+                <Authorized>
+                    <a @onclick="Logout" href="javascript:void(0)">Logout</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
@@ -15,3 +26,11 @@
         </article>
     </main>
 </div>
+
+@code {
+    private async Task Logout()
+    {
+        authService.Logout();
+        navManager.NavigateTo("/", true);
+    }
+}

@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -39,6 +41,16 @@ public class User {
     @NotNull(message = "The user email must not be null")
     @Email(message = "The user email must be in valid format")
     private String email;
+
+    @NotNull(message = "The user password must not be null")
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Singular
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
 //    @Valid
 //    @OneToMany(mappedBy = "assigned", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

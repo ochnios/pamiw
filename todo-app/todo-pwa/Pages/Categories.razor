@@ -2,7 +2,6 @@
 @inject HttpClient Http
 @using todo_pwa.Models;
 
-
 <PageTitle>Categories</PageTitle>
 
 <h1>Categories</h1>
@@ -63,10 +62,18 @@ else
         <div class="col-lg-1 col-md-1 col-sm-12">&nbsp;</div>
 
         <div class="col-lg-4 col-md-4 col-sm-12">
-            <h3>Add Category</h3>
+            @if (edit == true)
+            {
+                <h3>Edit Category</h3>
+            }
+            else
+            {
+                <h3>Add Category</h3>
+            }
             <br>
             <input type="text" @bind-value="newCategory.Name" class="form-control mb-3" placeholder="Enter Name" />
             <button class="btn btn-block btn-primary" @onclick="SubmitCategory">Submit</button>
+            <button class="btn btn-block btn-secondary" @onclick="CancelCategory">Cancel</button>
         </div>
     </div>
 }
@@ -101,6 +108,13 @@ else
             newCategory = new Category();
         }
     }
+
+    private async Task CancelCategory()
+    {
+        edit = false;
+        newCategory = new Category();
+    }
+
     private async Task DeleteCategory(int id)
     {
         await Http.DeleteAsync("categories/" + id.ToString());
